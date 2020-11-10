@@ -44,9 +44,13 @@
 ;;(elpy-enable)
 
 ;; == real-auto-save ==
-(require 'real-auto-save)
 (add-hook 'prog-mode-hook 'real-auto-save-mode)
 (setq real-auto-save-interval 1)
+
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
 
 (doom! :input
        ;;chinese
