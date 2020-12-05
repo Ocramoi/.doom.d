@@ -14,11 +14,11 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-;; PACKAGES: company, irony-mode, elpy, real-auto-save
+;; PACKAGES: company, irony-mode, elpy, real-auto-save, company-irony-c-headers
 
 ;; == irony-mode ==
 (use-package irony
-  ;:ensure t
+  ;;:ensure
   :defer t
   :init
   (add-hook 'c++-mode-hook 'irony-mode)
@@ -27,30 +27,65 @@
   :config
   ;; replace the `completion-at-point' and `complete-symbol' bindings in
   ;; irony-mode's buffers by irony-mode's function
-  (defun my-irony-mode-hook ()
-     (define-key irony-mode-map [remap completion-at-point]
-     'irony-completion-at-point-async)
-     (define-key irony-mode-map [remap complete-symbol]
-     'irony-completion-at-point-async))
-  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+  ;;(defun my-irony-mode-hook ()
+  ;;   (define-key irony-mode-map [remap completion-at-point]
+  ;;   'irony-completion-at-point-async)
+  ;;   (define-key irony-mode-map [remap complete-symbol]
+  ;;   'irony-completion-at-point-async))
+  ;;(add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 )
+
+;; == company-c-headers ==
+;;(require 'company-irony-c-headers)
 
 ;; == company-mode ==
 (use-package company
   :ensure t)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+;;(eval-after-load 'company
+;;  '(add-to-list
+;;    'company-backends 'company-irony-c-headers 'company-irony))
+
 
 ;; == elpy ==
 ;;(elpy-enable)
 
 ;; == real-auto-save ==
-(add-hook 'prog-mode-hook 'real-auto-save-mode)
-(setq real-auto-save-interval 1)
+;;(require 'real-auto-save)
+;;(add-hook 'prog-mode-hook 'real-auto-save-mode)
+;;(setq real-auto-save-interval 1)
 
+;; Latex
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+;; == centaur-tabs ==
+(use-package centaur-tabs
+  :config
+  (setq centaur-tabs-set-modified-marker t
+	centaur-tabs-set-bar 'under)
+  (centaur-tabs-mode t)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+)
+
+;; Multi pane navigation controls
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
+
+;; Custom hooks ;;
+(global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-b") 'neotree-toggle)
+(global-set-key (kbd "C-/") 'comment-line)
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z") nil)
+(global-set-key (kbd "C-z") 'advertised-undo)
 
 (doom! :input
        ;;chinese
@@ -71,7 +106,7 @@
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -79,7 +114,7 @@
        neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       ;;tabs              ; a tab bar for Emacs
+       tabs              ; a tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
