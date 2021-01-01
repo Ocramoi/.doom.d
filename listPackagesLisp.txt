@@ -1,0 +1,1 @@
+(with-temp-file "packages.txt" (insert (format "%S" package-activated-list)))

@@ -14,7 +14,12 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-;; PACKAGES: company, irony-mode, elpy, real-auto-save, company-irony-c-headers
+;; PACKAGES: (2048-game company-auctex auctex company-c-headers company-irony company-irony-c-headers eshell-toggle flycheck-irony flycheck dash irony-eldoc irony pkg-info epl real-auto-save visual-fill-column elpy pyvenv highlight-indentation company find-file-in-project ivy yasnippet-snippets s yasnippet)
+
+;; == eshell-toggle ==
+(use-package eshell-toggle
+  :bind
+  ("C-'" . eshell-toggle))
 
 ;; == irony-mode ==
 (use-package irony
@@ -40,17 +45,13 @@
 ;;(require 'company-irony-c-headers)
 
 ;; == company-mode ==
-(use-package company
-  :ensure t)
+(use-package company)
+  ;; :ensure t)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 ;;(eval-after-load 'company
 ;;  '(add-to-list
 ;;    'company-backends 'company-irony-c-headers 'company-irony))
-
-
-;; == elpy ==
-;;(elpy-enable)
 
 ;; == real-auto-save ==
 ;;(require 'real-auto-save)
@@ -84,8 +85,12 @@
 (global-set-key (kbd "C-b") 'neotree-toggle)
 (global-set-key (kbd "C-/") 'comment-line)
 (global-unset-key (kbd "C-z"))
-(global-set-key (kbd "C-z") nil)
-(global-set-key (kbd "C-z") 'advertised-undo)
+;(global-set-key (kbd "C-z") nil)
+;(global-set-key (kbd "C-z") 'advertised-undo)
+(global-set-key (kbd "C-'") 'eshell-toggle)
+
+;; Buffer preferences ;;
+(global-subword-mode 1)
 
 (doom! :input
        ;;chinese
@@ -106,7 +111,7 @@
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       indent-guides     ; highlighted indent columns
+       ;;indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -145,7 +150,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; the elisp shell that works everywhere
+       eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        ;;vterm             ; the best terminal emulation in Emacs
@@ -167,7 +172,7 @@
        lookup              ; navigate your code and its documentation
        ;;lsp
        magit             ; a git porcelain for Emacs
-       ;;make              ; run make tasks from Emacs
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
