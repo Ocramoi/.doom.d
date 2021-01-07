@@ -14,7 +14,7 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-;; PACKAGES: (2048-game company-auctex auctex company-c-headers company-irony company-irony-c-headers eshell-toggle flycheck-irony flycheck dash irony-eldoc irony pkg-info epl real-auto-save visual-fill-column elpy pyvenv highlight-indentation company find-file-in-project ivy yasnippet-snippets s yasnippet)
+;; PACKAGES: (2048-game company-auctex auctex company-c-headers company-irony company-irony-c-headers company-quickhelp eshell-toggle flycheck-irony flycheck irony-eldoc irony pandoc pandoc-mode dash hydra lv pkg-info epl pos-tip real-auto-save visual-fill-column elpy pyvenv highlight-indentation company find-file-in-project ivy yasnippet-snippets s yasnippet)
 
 ;; == eshell-toggle ==
 (use-package eshell-toggle
@@ -46,16 +46,23 @@
 
 ;; == company-mode ==
 (use-package company)
+
   ;; :ensure t)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
+
+;; == company-quickhelp-mode ==
+(add-hook 'python-mode-hook 'elpy-enable)
+(add-hook 'prog-mode-hook 'company-quickhelp-mode)
+;(use-package company-quickhelp-mode)
+
 ;;(eval-after-load 'company
 ;;  '(add-to-list
 ;;    'company-backends 'company-irony-c-headers 'company-irony))
 
 ;; == real-auto-save ==
 ;;(require 'real-auto-save)
-;;(add-hook 'prog-mode-hook 'real-auto-save-mode)
+;; (add-hook 'prog-mode-hook 'real-auto-save-mode)
 ;;(setq real-auto-save-interval 1)
 
 ;; Latex
@@ -74,6 +81,28 @@
   ("C-<next>" . centaur-tabs-forward)
 )
 
+;; == Text mode ==
+;(with-eval-after-load "ispell"
+;  (setenv "LANG" "en_US")
+;  (setq ispell-program-name "hunspell")
+;  (setq ispell-dictionary "en_US,pt_BR")
+;  (ispell-set-spellchecker-params)
+;  (ispell-hunspell-add-multi-dic "en_US,pt_BR"))
+;(defun text-mode-setup ()
+;  (message "Loaded")
+;  (setq ispell-program-name "aspell")
+;  (setq ispell-dictionary "en,pt_BR"))
+;(add-hook 'text-mode-hook 'text-mode-setup)
+;;(eval-after-load 'text-mode 'text-mode-setup)
+
+;; == Markdown mode ==
+(add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
+;; (add-hook 'markdown-mode-hook 'pandoc-mode)
+;; (defun cam/preview-markdown ()
+;;   (interactive)
+;;   (message "Rendering Markdown preview of %s" buffer-file-name)
+;;   (shell-command-on-region (point-min) (point-max) "pandoc -f gfm" "*Preview Markdown Output*"))
+
 ;; Multi pane navigation controls
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
@@ -84,10 +113,11 @@
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-b") 'neotree-toggle)
 (global-set-key (kbd "C-/") 'comment-line)
-(global-unset-key (kbd "C-z"))
-;(global-set-key (kbd "C-z") nil)
-;(global-set-key (kbd "C-z") 'advertised-undo)
+;; (global-unset-key (kbd "C-z"))
+;; (global-set-key (kbd "C-z") nil)
+;; (global-set-key (kbd "C-z") 'advertised-undo)
 (global-set-key (kbd "C-'") 'eshell-toggle)
+(global-set-key (kbd "C-f") 'isearch-complete)
 
 ;; Buffer preferences ;;
 (global-subword-mode 1)
