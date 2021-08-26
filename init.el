@@ -16,10 +16,15 @@
 
 ;; PACKAGES: (2048-game company-auctex auctex company-c-headers company-irony company-irony-c-headers company-quickhelp eshell-toggle flycheck-irony flycheck irony-eldoc irony pandoc pandoc-mode dash hydra lv pkg-info epl pos-tip real-auto-save visual-fill-column elpy pyvenv highlight-indentation company find-file-in-project ivy yasnippet-snippets s yasnippet)
 
-;; == eshell-toggle ==
-(use-package eshell-toggle
-  :bind
-  ("C-'" . eshell-toggle))
+;; == GLOBAL ==
+
+;; == vterm ==
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (buffer-face-set :font-family "American Typewriter")
+            (buffer-face-mode t)))
+(setq vterm-ignore-blink-cursor nil)
+(global-set-key (kbd "C-'") '+vterm/toggle)
 
 ;; == irony-mode ==
 (use-package irony
@@ -41,9 +46,6 @@
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 )
 
-;; == company-c-headers ==
-;;(require 'company-irony-c-headers)
-
 ;; == company-mode ==
 (use-package company)
 
@@ -54,11 +56,10 @@
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
 (add-hook 'prog-mode-hook 'company-quickhelp-mode)
-;(use-package company-quickhelp-mode)
 
-;;(eval-after-load 'company
-;;  '(add-to-list
-;;    'company-backends 'company-irony-c-headers 'company-irony))
+(eval-after-load 'company
+ '(add-to-list
+   'company-backends 'company-irony-c-headers))
 
 ;; == real-auto-save ==
 ;;(require 'real-auto-save)
@@ -82,45 +83,66 @@
 )
 
 ;; == Text mode ==
-;(with-eval-after-load "ispell"
-;  (setenv "LANG" "en_US")
-;  (setq ispell-program-name "hunspell")
-;  (setq ispell-dictionary "en_US,pt_BR")
-;  (ispell-set-spellchecker-params)
-;  (ispell-hunspell-add-multi-dic "en_US,pt_BR"))
-;(defun text-mode-setup ()
-;  (message "Loaded")
-;  (setq ispell-program-name "aspell")
-;  (setq ispell-dictionary "en,pt_BR"))
-;(add-hook 'text-mode-hook 'text-mode-setup)
-;;(eval-after-load 'text-mode 'text-mode-setup)
+(defun enable-ispell-portuguese ()
+  (interactive)
+  (setq-local company-ispell-dictionary (file-truename "/home/ocramoi/listaPalavrasPtBrEmacs.txt")))
+
+(defun disable-ispell-portuguese ()
+  (interactive)
+  (setq-local company-ispell-dictionary nil))
+
+(defun toggle-company-ispell ()
+  (interactive)
+  (cond
+   ((memq 'company-ispell company-backends)
+    (setq company-backends (delete 'company-ispell company-backends))
+    (message "company-ispell disabled"))
+   (t
+    (add-to-list 'company-backends 'company-ispell)
+    (message "company-ispell enabled"))))
+
+(defun initIspellComplete()
+    (setq company-backends (delete 'company-ispell company-backends)))
+  ;; (eval-after-load 'company
+  ;;   (setq company-backends (delete 'company-ispell company-backends))))
+
+(add-hook 'text-mode-hook 'initIspellComplete)
+(add-hook 'markdown-mode-hook 'initIspellComplete)
+(add-hook 'org-mode-hook 'initIspellComplete)
 
 ;; == Markdown mode ==
 (add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
-;; (add-hook 'markdown-mode-hook 'pandoc-mode)
-;; (defun cam/preview-markdown ()
-;;   (interactive)
-;;   (message "Rendering Markdown preview of %s" buffer-file-name)
-;;   (shell-command-on-region (point-min) (point-max) "pandoc -f gfm" "*Preview Markdown Output*"))
 
 ;; Multi pane navigation controls
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
+;; (global-set-key (kbd "C-x <up>") 'windmove-up)
+;; (global-set-key (kbd "C-x <down>") 'windmove-down)
+;; (global-set-key (kbd "C-x <left>") 'windmove-left)
+;; (global-set-key (kbd "C-x <right>") 'windmove-right)
+
+;; Java
+(add-hook 'java-mode-hook
+        (lambda ()
+                (meghanada-mode t)
+                (flycheck-mode +1)
+                (setq c-basic-offset 4)))
+(setq meghanada-java-path "/usr/bin/java")
 
 ;; Custom hooks ;;
 (global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-b") 'neotree-toggle)
+(global-set-key (kbd "C-b") 'treemacs)
 (global-set-key (kbd "C-/") 'comment-line)
-;; (global-unset-key (kbd "C-z"))
-;; (global-set-key (kbd "C-z") nil)
-;; (global-set-key (kbd "C-z") 'advertised-undo)
-(global-set-key (kbd "C-'") 'eshell-toggle)
+
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-Z"))
+(global-set-key (kbd "C-z") 'undo-fu-only-undo)
+(global-set-key (kbd "C-Z") 'undo-fu-only-redo)
 (global-set-key (kbd "C-f") 'isearch-complete)
+(add-hook 'kill-emacs-hook 'garbage-collect)
 
 ;; Buffer preferences ;;
 (global-subword-mode 1)
+(setq mouse-drag-and-drop-region t)
+(setq line-move-visual t)
 
 (doom! :input
        ;;chinese
@@ -146,15 +168,15 @@
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
-       neotree           ; a project drawer, like NERDTree for vim
+       ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
-       ;;treemacs          ; a project drawer, like neotree but cooler
-       ;;unicode           ; extended unicode support for various languages
+       treemacs          ; a project drawer, like neotree but cooler
+       unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       ;;window-select     ; visually switch windows
+       window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
@@ -175,20 +197,20 @@
        :emacs
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
-       ;;ibuffer         ; interactive buffer management
+       ibuffer         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; the elisp shell that works everywhere
+       ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
-       ;;vterm             ; the best terminal emulation in Emacs
+       vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
        spell             ; tasing you for misspelling mispelling
-       ;;grammar           ; tasing grammar mistake every you make
+       grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -196,17 +218,17 @@
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame Jupyter notebooks with emacs
+       ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       ;;lsp
+       lsp
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;;rgb               ; creating color strings
+       rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
@@ -255,16 +277,16 @@
        ;;ocaml             ; an objective camel
        org               ; organize your plain life in plain text
        php               ; perl's insecure younger brother
-       ;;plantuml          ; diagrams for confusing people more
+       plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
        qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
-       ;;rest              ; Emacs as a REST client
+       rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
@@ -272,8 +294,8 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
-       ;;yaml              ; JSON, but readable
+       web               ; the tubes
+       yaml              ; JSON, but readable
 
        :email
        ;;(mu4e +gmail)
@@ -284,7 +306,7 @@
        calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
-       twitter           ; twitter client https://twitter.com/vnought
+       ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
