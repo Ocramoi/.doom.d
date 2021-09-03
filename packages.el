@@ -98,3 +98,4 @@
 (package! auto-complete)
 (package! arduino-mode)
 (package! vterm-toggle)
+(package! 2048-game)

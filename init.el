@@ -14,9 +14,26 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-;; PACKAGES: (2048-game company-auctex auctex company-c-headers company-irony company-irony-c-headers company-quickhelp eshell-toggle flycheck-irony flycheck irony-eldoc irony pandoc pandoc-mode dash hydra lv pkg-info epl pos-tip real-auto-save visual-fill-column elpy pyvenv highlight-indentation company find-file-in-project ivy yasnippet-snippets s yasnippet)
-
 ;; == GLOBAL ==
+
+;; == Ispell ==
+(with-eval-after-load "ispell"
+  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+  ;; dictionary' even though multiple dictionaries will be configured
+  ;; in next line.
+  (setenv "LANG" "en_US.UTF-8")
+  (setq ispell-program-name "hunspell")
+  ;; Configure English and Portuguese.
+  (setq ispell-dictionary "pt_BR,en_US")
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "pt_BR,en_US"))
+
+;; The personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it.
+;;(unless (file-exists-p ispell-personal-dictionary)
+;;  (write-region "" nil ispell-personal-dictionary nil 0))
 
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
@@ -214,7 +231,7 @@
 
        :tools
        ;;ansible
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces

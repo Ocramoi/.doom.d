@@ -15,8 +15,7 @@
  '(meghanada-full-text-search-enable t)
  '(meghanada-java-path "/usr/bin/java" t)
  '(org-M-RET-may-split-line nil)
- '(org-agenda-files
-   '("~/Documents/ORG/Pessoal.org" "~/Documents/ORG/Trabalhos.org"))
+ '(org-agenda-files '("~/org/Trabalhos.org" "/home/ocramoi/org/Pessoal.org"))
  '(package-selected-packages
    '(elpy company-arduino company-quickhelp python-cell fzf gemini-mode mips-mode undo-tree java-imports zenity-color-picker imenu-list pandoc-mode pandoc company-irony-c-headers eshell-toggle company-auctex auctex company-c-headers real-auto-save company-irony flycheck-irony irony-eldoc irony company))
  '(projectile-git-submodule-command nil)
