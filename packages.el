@@ -50,7 +50,6 @@
 ;(unpin! t)
 
 (package! use-package)
-(eval-when-compile (require 'use-package))
 (package! zenity-color-picker)
 (package! yasnippet)
 (package! web-completion-data)
@@ -99,3 +98,7 @@
 (package! arduino-mode)
 (package! vterm-toggle)
 (package! 2048-game)
+(package! ebib)
+(package! flycheck-clang-analyzer)
+(package! rtags)
+(package! company-rtags)

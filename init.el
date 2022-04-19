@@ -35,6 +35,8 @@
 ;;(unless (file-exists-p ispell-personal-dictionary)
 ;;  (write-region "" nil ispell-personal-dictionary nil 0))
 
+(eval-when-compile (require 'use-package))
+
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
           (lambda ()
@@ -73,10 +75,30 @@
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
 (add-hook 'prog-mode-hook 'company-quickhelp-mode)
+(setq elpy-rpc-virtualenv-path 'system)
 
 (eval-after-load 'company
  '(add-to-list
    'company-backends 'company-irony-c-headers))
+
+;; (use-package rtags)
+;; (use-package company-rtags)
+
+;; (setq rtags-completions-enabled t)
+;; (eval-after-load 'company
+;;  '(add-to-list
+;;    'company-backends 'company-rtags))
+;; (setq rtags-autostart-diagnostics t)
+;; (rtags-enable-standard-keybindings)
+
+;; == flycheck ==
+(use-package flycheck-clang-analyzer
+  :ensure t
+  :after flycheck
+  :config 
+  (setq flycheck-clang-language-standard "c++17")
+  (setq flycheck-gcc-language-standard "c++17")
+  (flycheck-clang-analyzer-setup))
 
 ;; == real-auto-save ==
 ;;(require 'real-auto-save)
@@ -128,7 +150,7 @@
 (add-hook 'org-mode-hook 'initIspellComplete)
 
 ;; == Markdown mode ==
-(add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
+;; (add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
 
 ;; Multi pane navigation controls
 ;; (global-set-key (kbd "C-x <up>") 'windmove-up)
@@ -143,6 +165,17 @@
                 (flycheck-mode +1)
                 (setq c-basic-offset 4)))
 (setq meghanada-java-path "/usr/bin/java")
+
+;; Org mode ;;
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("IEEEtran" "\\documentclass[11pt]{IEEEtran}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+)
 
 ;; Custom hooks ;;
 (global-set-key (kbd "C-s") 'save-buffer)
@@ -180,7 +213,7 @@
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -234,7 +267,7 @@
        debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       editorconfig      ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
@@ -249,7 +282,7 @@
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       ;;upload            ; map local to remote projects via ssh/ftp
+       upload            ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
