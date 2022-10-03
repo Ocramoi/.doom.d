@@ -102,3 +102,4 @@
 (package! flycheck-clang-analyzer)
 (package! rtags)
 (package! company-rtags)
+(package! platformio-mode)

@@ -35,7 +35,28 @@
 ;;(unless (file-exists-p ispell-personal-dictionary)
 ;;  (write-region "" nil ispell-personal-dictionary nil 0))
 
-(eval-when-compile (require 'use-package))
+;;{{{ Set up package and use-package
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Bootstrap 'use-package'
+(eval-after-load 'gnutls
+  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
+(setq use-package-always-ensure t)
+
+;;}}}
+
+;; == rainbow-delimiters ==
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
@@ -113,12 +134,16 @@
 ;; == centaur-tabs ==
 (use-package centaur-tabs
   :config
-  (setq centaur-tabs-set-modified-marker t
-	centaur-tabs-set-bar 'under)
   (centaur-tabs-mode t)
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-set-bar 'left)
+  (centaur-tabs-group-by-projectile-project)
+  ;; (centaur-tabs-mode t)
   :bind
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward)
+  ("C-{" . centaur-tabs-backward)
+  ("C-}" . centaur-tabs-forward)
 )
 
 ;; == Text mode ==
@@ -334,7 +359,7 @@
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
-       ;;rst               ; ReST in peace
+       rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
