@@ -103,3 +103,4 @@
 (package! rtags)
 (package! company-rtags)
 (package! platformio-mode)
+(package! vue-mode)

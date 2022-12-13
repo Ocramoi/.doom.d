@@ -26,8 +26,11 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-dracula)
-(setq doom-font (font-spec :family "MesloLGS NF" :size 14 :weight 'semi-light)
+;; (setq doom-font (font-spec :family "MesloLGS NF" :size 14 :weight 'semi-light)
+(setq doom-font (font-spec :family "MesloLGS NF" :size 14)
       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;; (setq doom-font (font-spec :family "MesloLGS NF")
+;;       doom-variable-pitch-font (font-spec :family "sans"))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!

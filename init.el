@@ -17,18 +17,21 @@
 ;; == GLOBAL ==
 
 ;; == Ispell ==
-;; (with-eval-after-load "ispell"
-;;   ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-;;   ;; dictionary' even though multiple dictionaries will be configured
-;;   ;; in next line.
-;;   (setenv "LANG" "en_US.UTF-8")
-;;   (setq ispell-program-name "hunspell")
-;;   ;; Configure English and Portuguese.
-;;   (setq ispell-dictionary "pt_BR,en_US")
-;;   ;; ispell-set-spellchecker-params has to be called
-;;   ;; before ispell-hunspell-add-multi-dic will work
-;;   (ispell-set-spellchecker-params)
-;;   (ispell-hunspell-add-multi-dic "pt_BR,en_US"))
+(with-eval-after-load "ispell"
+  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+  ;; dictionary' even though multiple dictionaries will be configured
+  ;; in next line.
+  (setenv "LANG" "en_US.UTF-8")
+  ;; (setq ispell-program-name "hunspell")
+  ;; Configure English and Portuguese.
+  ;; (setq ispell-dictionary "en_US")
+  ;; (ispell-change-dictionary "en_US")
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  ;; (ispell-set-spellchecker-params)
+  ;; (ispell-hunspell-add-multi-dic "pt_BR,en_US")
+  ;; (defun ispell-get-coding-system () 'utf-8)
+  (setq ispell-personal-dictionary "~/.hunspell_personal"))
 
 ;; The personal dictionary file has to exist, otherwise hunspell will
 ;; silently not use it.
@@ -54,6 +57,9 @@
 (setq use-package-always-ensure t)
 
 ;;}}}
+
+;; == vue ==
+(add-hook 'vue-mode-hook #'lsp!)
 
 ;; == rainbow-delimiters ==
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -248,7 +254,7 @@
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
-       unicode           ; extended unicode support for various languages
+       ;; unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
@@ -284,7 +290,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
+       (spell +flyspell +hunspell)             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools

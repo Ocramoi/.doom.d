@@ -10,10 +10,10 @@
  '(company-meghanada-insert-args t)
  '(fancy-splash-image
    "/home/ocramoi/.emacs.d/modules/ui/doom-dashboard/banners/default.png")
- '(markdown-command '+markdown-compile)
+ '(markdown-command '+markdown-compile t)
  '(markdown-command-needs-filename nil)
  '(markdown-live-preview-window-function 'markdown-live-preview-window-eww)
- '(markdown-open-command "xdg-open")
+ '(markdown-open-command "xdg-open" t)
  '(markdown-split-window-direction 'right)
  '(meghanada-completion-matcher "prefix")
  '(meghanada-debug t)
@@ -21,7 +21,7 @@
  '(meghanada-java-path "/usr/bin/java" t)
  '(org-M-RET-may-split-line nil)
  '(org-agenda-files
-   '("~/org/LEPES.org" "/home/ocramoi/org/Freela.org" "/home/ocramoi/org/rufus.org" "/home/ocramoi/org/Trabalhos.org" "/home/ocramoi/org/Pessoal.org"))
+   '("~/org/marcoantonioribeirodetoledo@gmail.com.org" "/home/ocramoi/org/mardt@usp.br.org" "/home/ocramoi/org/LEPES.org" "/home/ocramoi/org/Freela.org" "/home/ocramoi/org/Trabalhos.org" "/home/ocramoi/org/Pessoal.org"))
  '(org-display-remote-inline-images 'download)
  '(org-hide-emphasis-markers t)
  '(org-hide-macro-markers t)
