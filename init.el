@@ -15,6 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 ;; == GLOBAL ==
+(setq frame-inhibit-implied-resize nil)
 
 ;; == Ispell ==
 (with-eval-after-load "ispell"
