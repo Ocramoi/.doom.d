@@ -57,7 +57,20 @@
 (require 'bind-key)
 (setq use-package-always-ensure t)
 
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+
 ;;}}}
+
+;; == imenu ==
+(setq imenu-list-auto-resize t)
+(setq imenu-list-idle-update-delay 0.5)
+(add-hook 'prog-mode-hook 'imenu-list-minor-mode)
+
+;; == lsp-ui ==
+(use-package lsp-ui)
+(add-hook 'prog-mode-hook 'lsp-ui-mode)
 
 ;; == vue ==
 (add-hook 'vue-mode-hook #'lsp!)
