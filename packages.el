@@ -75,7 +75,7 @@
 (package! hydra)
 (package! ht)
 (package! highlight-indentation)
-;; (package! gemini-mode)
+(package! gemini-mode)
 (package! fzf)
 (package! flymake)
 (package! flymake-quickdef)
@@ -104,3 +104,4 @@
 (package! company-rtags)
 (package! platformio-mode)
 (package! vue-mode)
+(package! org-ros)

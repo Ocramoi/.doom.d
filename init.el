@@ -23,15 +23,16 @@
   ;; dictionary' even though multiple dictionaries will be configured
   ;; in next line.
   (setenv "LANG" "en_US.UTF-8")
-  ;; (setq ispell-program-name "hunspell")
+  (setq ispell-program-name "hunspell") ;;
   ;; Configure English and Portuguese.
-  ;; (setq ispell-dictionary "en_US")
+  (setq ispell-dictionary "en_US") ;;
   ;; (ispell-change-dictionary "en_US")
   ;; ispell-set-spellchecker-params has to be called
   ;; before ispell-hunspell-add-multi-dic will work
-  ;; (ispell-set-spellchecker-params)
-  ;; (ispell-hunspell-add-multi-dic "pt_BR,en_US")
-  ;; (defun ispell-get-coding-system () 'utf-8)
+  (ispell-set-spellchecker-params) ;;
+  (ispell-hunspell-add-multi-dic "pt_BR,en_US") ;;
+  (defun ispell-get-coding-system () 'utf-8) ;;
+  (ispell-change-dictionary "pt_BR,en_US")
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
 
 ;; The personal dictionary file has to exist, otherwise hunspell will
@@ -66,7 +67,7 @@
 ;; == imenu ==
 (setq imenu-list-auto-resize t)
 (setq imenu-list-idle-update-delay 0.5)
-(add-hook 'prog-mode-hook 'imenu-list-minor-mode)
+;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
 ;; == lsp-ui ==
 (use-package lsp-ui)
@@ -167,32 +168,30 @@
 )
 
 ;; == Text mode ==
-(defun enable-ispell-portuguese ()
-  (interactive)
-  (setq-local company-ispell-dictionary (file-truename "/home/ocramoi/listaPalavrasPtBrEmacs.txt")))
+;; (defun enable-ispell-portuguese ()
+;;   (interactive)
+;;   (setq-local company-ispell-dictionary (file-truename "/home/ocramoi/listaPalavrasPtBrEmacs.txt")))
 
-(defun disable-ispell-portuguese ()
-  (interactive)
-  (setq-local company-ispell-dictionary nil))
+;; (defun disable-ispell-portuguese ()
+;;   (interactive)
+;;   (setq-local company-ispell-dictionary nil))
 
-(defun toggle-company-ispell ()
-  (interactive)
-  (cond
-   ((memq 'company-ispell company-backends)
-    (setq company-backends (delete 'company-ispell company-backends))
-    (message "company-ispell disabled"))
-   (t
-    (add-to-list 'company-backends 'company-ispell)
-    (message "company-ispell enabled"))))
+;; (defun toggle-company-ispell ()
+;;   (interactive)
+;;   (cond
+;;    ((memq 'company-ispell company-backends)
+;;     (setq company-backends (delete 'company-ispell company-backends))
+;;     (message "company-ispell disabled"))
+;;    (t
+;;     (add-to-list 'company-backends 'company-ispell)
+;;     (message "company-ispell enabled"))))
 
-(defun initIspellComplete()
-    (setq company-backends (delete 'company-ispell company-backends)))
-  ;; (eval-after-load 'company
-  ;;   (setq company-backends (delete 'company-ispell company-backends))))
+;; (defun initIspellComplete()
+;;     (setq company-backends (delete 'company-ispell company-backends)))
 
-(add-hook 'text-mode-hook 'initIspellComplete)
-(add-hook 'markdown-mode-hook 'initIspellComplete)
-(add-hook 'org-mode-hook 'initIspellComplete)
+;; (add-hook 'text-mode-hook 'initIspellComplete)
+;; (add-hook 'markdown-mode-hook 'initIspellComplete)
+;; (add-hook 'org-mode-hook 'initIspellComplete)
 
 ;; == Markdown mode ==
 ;; (add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
