@@ -14,6 +14,31 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+;; == use-package ==
+;;{{{ Set up package and use-package
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Bootstrap 'use-package'
+(eval-after-load 'gnutls
+  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
+;; (setq use-package-always-ensure t)
+
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+
+;;}}}
+
 ;; == GLOBAL ==
 (setq frame-inhibit-implied-resize nil)
 (with-eval-after-load 'org
@@ -26,6 +51,9 @@
 
 ; open mail-mode when emacs is invoked by mutt
 (add-to-list 'auto-mode-alist '("/.tmpmail" . mail-mode))
+
+;; == Docker ==
+(add-to-list 'auto-mode-alist '("dockerfile" . dockerfile-mode))
 
 ;; == RSS ==
 ;; (setq rmh-elfeed-org-files '("~/org/elfeed.org"))
@@ -51,42 +79,16 @@
   (ispell-change-dictionary "pt_BR,en_US")
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
 
-;; The personal dictionary file has to exist, otherwise hunspell will
-;; silently not use it.
-;;(unless (file-exists-p ispell-personal-dictionary)
-;;  (write-region "" nil ispell-personal-dictionary nil 0))
-
-;;{{{ Set up package and use-package
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; Bootstrap 'use-package'
-(eval-after-load 'gnutls
-  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-(require 'bind-key)
-(setq use-package-always-ensure t)
-
-(eval-when-compile
-  ;; Following line is not needed if use-package.el is in ~/.emacs.d
-  (require 'use-package))
-
-;;}}}
-
 ;; == imenu ==
-(setq imenu-list-auto-resize t)
-(setq imenu-list-idle-update-delay 0.5)
+(eval-after-load 'imenu-list-minor-mode
+  '(setq imenu-list-auto-resize t))
+(eval-after-load 'imenu-list-minor-mode
+  '(setq imenu-list-idle-update-delay 0.5))
 ;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
 ;; == lsp-ui ==
-(use-package lsp-ui)
+(use-package lsp-ui
+  :defer t)
 (add-hook 'prog-mode-hook 'lsp-ui-mode)
 
 ;; == vue ==
@@ -124,9 +126,9 @@
 )
 
 ;; == company-mode ==
-(use-package company)
+(use-package company
+  :defer t)
 
-  ;; :ensure t)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
@@ -136,8 +138,7 @@
 ;; (setq elpy-rpc-virtualenv-path 'system)
 
 (eval-after-load 'company
- '(add-to-list
-   'company-backends 'company-irony-c-headers))
+ '(add-to-list 'company-backends 'company-irony-c-headers))
 
 ;; (use-package rtags)
 ;; (use-package company-rtags)
@@ -155,17 +156,12 @@
 
 ;; == flycheck ==
 (use-package flycheck-clang-analyzer
-  :ensure t
+  :defer t
   :after flycheck
   :config 
   (setq flycheck-clang-language-standard "c++17")
   (setq flycheck-gcc-language-standard "c++17")
   (flycheck-clang-analyzer-setup))
-
-;; == real-auto-save ==
-;;(require 'real-auto-save)
-;; (add-hook 'prog-mode-hook 'real-auto-save-mode)
-;;(setq real-auto-save-interval 1)
 
 ;; Latex
 (setq TeX-auto-save t)
@@ -174,6 +170,7 @@
 
 ;; == centaur-tabs ==
 (use-package centaur-tabs
+  :defer t
   :config
   (centaur-tabs-mode t)
   (setq centaur-tabs-set-modified-marker t
