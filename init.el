@@ -16,6 +16,22 @@
 
 ;; == GLOBAL ==
 (setq frame-inhibit-implied-resize nil)
+(with-eval-after-load 'org
+  (setq org-directory "~/org"))
+
+;; == MAIL ==
+(add-hook 'mail-mode-hook 'flyspell-mode)
+(add-hook 'mail-mode-hook 'flycheck-mode)
+(add-hook 'mail-mode-hook 'turn-on-auto-fill)
+
+; open mail-mode when emacs is invoked by mutt
+(add-to-list 'auto-mode-alist '("/.tmpmail" . mail-mode))
+
+;; == RSS ==
+;; (setq rmh-elfeed-org-files '("~/org/elfeed.org"))
+
+;; == Twitter ==
+(setq twittering-allow-insecure-server-cert t)
 
 ;; == Ispell ==
 (with-eval-after-load "ispell"
@@ -117,7 +133,7 @@
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
 (add-hook 'prog-mode-hook 'company-quickhelp-mode)
-(setq elpy-rpc-virtualenv-path 'system)
+;; (setq elpy-rpc-virtualenv-path 'system)
 
 (eval-after-load 'company
  '(add-to-list
@@ -132,6 +148,10 @@
 ;;    'company-backends 'company-rtags))
 ;; (setq rtags-autostart-diagnostics t)
 ;; (rtags-enable-standard-keybindings)
+
+;; == Python ==
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
 
 ;; == flycheck ==
 (use-package flycheck-clang-analyzer
@@ -310,16 +330,16 @@
        ;;ansible
        debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        editorconfig      ; let someone else argue about tabs vs spaces
-       ein               ; tame Jupyter notebooks with emacs
+       ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        lsp
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
+       pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
@@ -400,7 +420,7 @@
        calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+       twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
