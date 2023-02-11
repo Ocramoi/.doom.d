@@ -43,6 +43,10 @@
 (setq frame-inhibit-implied-resize nil)
 (with-eval-after-load 'org
   (setq org-directory "~/org"))
+;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+;; dictionary' even though multiple dictionaries will be configured
+;; in next line.
+(setenv "LANG" "en_US.UTF-8")
 
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
@@ -62,28 +66,31 @@
 (setq twittering-allow-insecure-server-cert t)
 
 ;; == Ispell ==
-(with-eval-after-load "ispell"
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US.UTF-8")
-  (setq ispell-program-name "hunspell") ;;
-  ;; Configure English and Portuguese.
-  (setq ispell-dictionary "en_US") ;;
-  ;; (ispell-change-dictionary "en_US")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params) ;;
-  (ispell-hunspell-add-multi-dic "pt_BR,en_US") ;;
-  (defun ispell-get-coding-system () 'utf-8) ;;
-  (ispell-change-dictionary "pt_BR,en_US")
-  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+(add-hook
+ 'flyspell-mode-hook
+ (lambda ()
+   ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+   ;; dictionary' even though multiple dictionaries will be configured
+   ;; in next line.
+   ;; (setenv "LANG" "en_US.UTF-8")
+   (setq ispell-program-name "hunspell") ;;
+   ;; Configure English and Portuguese.
+   (setq ispell-dictionary "en_US") ;;
+   ;; (ispell-change-dictionary "en_US")
+   ;; ispell-set-spellchecker-params has to be called
+   ;; before ispell-hunspell-add-multi-dic will work
+   (ispell-set-spellchecker-params) ;;
+   (ispell-hunspell-add-multi-dic "pt_BR,en_US") ;;
+   (defun ispell-get-coding-system () 'utf-8) ;;
+   (ispell-change-dictionary "pt_BR,en_US")
+   (setq ispell-alternate-dictionary "pt_BR,en_US")
+   (setq ispell-personal-dictionary "~/.hunspell_personal")
+   )
+ )
 
 ;; == imenu ==
-(eval-after-load 'imenu-list-minor-mode
-  '(setq imenu-list-auto-resize t))
-(eval-after-load 'imenu-list-minor-mode
-  '(setq imenu-list-idle-update-delay 0.5))
+(setq imenu-list-auto-resize t)
+(setq imenu-list-idle-update-delay 0.5)
 ;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
 ;; == lsp-ui ==
@@ -107,7 +114,6 @@
 
 ;; == irony-mode ==
 (use-package irony
-  ;;:ensure
   :defer t
   :init
   (add-hook 'c++-mode-hook 'irony-mode)

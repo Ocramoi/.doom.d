@@ -21,7 +21,7 @@
  '(meghanada-java-path "/usr/bin/java" t)
  '(org-M-RET-may-split-line nil)
  '(org-agenda-files
-   '("/home/ocramoi/org/mardt@usp.br.org" "/home/ocramoi/org/Napala.org" "/home/ocramoi/org/marcoantonioribeirodetoledo@gmail.com.org" "/home/ocramoi/org/Trabalhos.org" "/home/ocramoi/org/Pessoal.org" "/home/ocramoi/org/Freela.org" "/home/ocramoi/org/LEPES.org"))
+   '("/home/ocramoi/org/LEPES.org" "/home/ocramoi/org/Napala.org" "/home/ocramoi/org/Pessoal.org" "/home/ocramoi/org/Trabalhos.org" "/home/ocramoi/org/Freela.org" "/home/ocramoi/org/marcoantonioribeirodetoledo@gmail.com.org" "/home/ocramoi/org/mardt@usp.br.org"))
  '(org-display-remote-inline-images 'download)
  '(org-hide-emphasis-markers t)
  '(org-hide-macro-markers t)
