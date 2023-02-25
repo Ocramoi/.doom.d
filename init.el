@@ -48,6 +48,20 @@
 ;; in next line.
 (setenv "LANG" "en_US.UTF-8")
 
+;; == org ==
+(setq org-sticky-header-full-path 'full)
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (org-sticky-header-mode)
+   (setq org-image-actual-width nil)
+   ))
+(add-hook
+ 'org-tree-slide-mode
+ (lambda ()
+   (org-display-inline-images)
+   ))
+
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
 (add-hook 'mail-mode-hook 'flycheck-mode)

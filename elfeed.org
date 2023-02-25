@@ -1,0 +1,261 @@
+#+title: Elfeed
+#+DESCRIPTION: RSS feed links
+
+* root :elfeed:
+** News :news:
+*** http://www.bbc.co.uk/portuguese/index.xml
+*** http://feeds.bbci.co.uk/news/rss.xml?edition=uk
+*** https://feeds.folha.uol.com.br/emcimadahora/rss091.xml
+*** https://feeds.folha.uol.com.br/poder/rss091.xml
+*** https://feeds.folha.uol.com.br/mundo/rss091.xml
+*** https://feeds.folha.uol.com.br/ciencia/rss091.xml
+*** http://rss.home.uol.com.br/index.xml
+*** http://www.newyorker.com/feed/everything
+*** https://revistaforum.com.br/rss/feed.html
+*** https://boakmirror.noblogs.org/feed/
+*** https://itsgoingdown.org/feed/
+*** https://rsshub.app/fnal/news
+*** https://rsshub.app/cgtn/opinions
+*** https://rsshub.app/disinfo/publications
+*** https://rsshub.app/aljazeera/english
+*** https://rsshub.app/apnews/topics/apf-topnews
+*** https://rsshub.app/nytimes/en
+*** https://rsshub.app/un/scveto
+*** https://rsshub.app/who/news
+*** https://www.agenciamural.org.br/feed/
+*** https://www.independent.co.uk/rss
+
+** Bands :band:
+# *** https://blackcountrynewroad.com/home-bh?format=rss
+
+** Twitter :twitter:
+*** https://rsshub.app/twitter/user/DIYgod
+*** https://rsshub.app/twitter/user/speedywunder
+
+** Dev.to :dev.to:
+*** https://rsshub.app/dev.to/top/month
+
+** Podcasts :podcasts:
+*** https://feeds.megaphone.fm/behindthebastards
+*** http://www.npr.org/rss/podcast.php?id=510298
+*** http://evenmorenews.libsyn.com/rss
+*** https://feeds.soundcloud.com/users/soundcloud:users:211911700/sounds.rss
+*** https://feeds.simplecast.com/6HSzsHPR
+*** https://feeds.megaphone.fm/HSW7591467563
+*** https://feed.podbean.com/mimimidias/feed.xml
+*** https://coffeewithcomrades.com/rss
+*** https://majorityfm.libsyn.com/rss
+*** https://anchor.fm/s/1cf1dbd4/podcast/rss
+*** https://feeds.megaphone.fm/HSW8729644451
+*** https://anchor.fm/s/17c42824/podcast/rss
+*** https://feeds.megaphone.fm/HSW8330622822
+*** https://anchor.fm/s/314efb34/podcast/rss
+*** https://revolutionspodcast.libsyn.com/rss
+*** http://feeds.feedburner.com/soundcloud/wch
+*** https://feeds.soundcloud.com/users/soundcloud:users:595199712/sounds.rss
+*** https://dietsoap.podomatic.com/rss2.xml
+*** https://feed.podbean.com/audibleanarchism/feed.xml
+*** https://anticapitalistchronicles.libsyn.com/rss
+*** https://therednation.libsyn.com/rss
+*** https://feeds.libsyn.com/162635/rss
+*** https://pinecast.com/feed/marxmadness
+*** https://feeds.blubrry.com/feeds/hear_the_bern.xml
+*** https://feeds.megaphone.fm/showmethemeaning
+*** https://rss.acast.com/intercepted-with-jeremy-scahill
+*** https://feed.theskepticsguide.org/feed/rss.aspx?feed=sgu
+*** https://www.thenakedscientists.com/naked_scientists_podcast.xml
+*** http://feeds.99percentinvisible.org/99percentinvisible
+*** https://feeds.soundcloud.com/users/soundcloud:users:24205710/sounds.rss
+*** https://feeds.feedburner.com/ear-biscuits
+*** https://feeds.soundcloud.com/users/soundcloud:users:739089343/sounds.rss
+*** https://itsgoingdown.org/feed/podcast/
+*** https://prolespod.libsyn.com/rss
+*** https://revolutionaryleftradio.libsyn.com/rss
+*** https://feeds.megaphone.fm/worstyearever
+*** https://redscarepodcast.libsyn.com/rss
+*** https://forodeteresina.libsyn.com/rss
+*** https://jovemnerd.com.br/feed-nerdcast/
+*** https://popularfront.libsyn.com/rss
+*** https://craphound.com/feed
+
+** Youtube :yt:
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCk5BcU1rOy6hepflk7_q_Pw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCgi2u-lGY-2i2ubLsUr6FbQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCxHcoI9ndIdAihEB7ODTOfQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCtoaZpBnrd0lhycxYJ4MNOQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCCmh3nJayT-7jEM6hg2vP9Q
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCSwwoUNvQWgZDC8a_O6Qs_A
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UClt01z1wHHT7c5lKcU8pxRQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCXjmz8dFzRJZrZY8eFiXNUQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCoG5ya-sMXNMkqkIz1sZ_Lw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCSuhUzpdXg9jme6eN6HA_IA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC4eYXhJI4-7wSWc8UNRwD4A
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC8l1OH0DOYARGUTrqAcWW2w
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCETjsiWHrAHyADOih7ACwHw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCqsq-k2LLwJ-UM77pLrEbHw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC6-ymYjG0SU0jUWnWh9ZzEQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCoOss5XiPpnLHGmLrBvNkJg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCEIwxahdLz7bap-VDs9h35A
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCPPZoYsfoSekIpLcz9plX1Q
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UClnCLTkRd1vhQYU1t1HyivQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCXkNod_JcH7PleOjwK_8rYQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCROQqK3_z79JuTetNP3pIXQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCIm9r-ukRTmprESWFm1AK9Q
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCInOR_Jhe-MH-IDSJ2BSOVA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCqNpjt_UcMPgm_9gphZgHYA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCcoxGCRGcq6FhHbEvr2y9Vg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCrCTC5_t-HaVJ025DbYITiw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC3qbvcgOHXRIFIofXyd1vBw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCEfglGzb6ZYKUCtlRv3we5g
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCK-GxvzttTnNhq3JPYpXhqg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCaN8DZdc8EHo5y1LsQWMiig
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCrr7y8rEXb7_RiVniwvzk9w
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCecF2icZlEIJ__9XS6woPGw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCkZFKKK-0YB0FvwoS8P7nHg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC0fGGprihDIlQ3ykWvcb9hg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC0zWycogkQFXMnk-CVZAxyQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCKWus46Vy8gwf1rRLu4II0w
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCtMjnvODdK1Gwy8psW3dzrg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCmEClzCBDx-vrt0GuSKBd9g
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCWyRlMktpKbfefqBQk8U6Nw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCDGz2exMIsPQ4k9VrsuhKTA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCm7Dm_26h4qkhlNCRJSctBw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC9x0AN7BWHpCDHSm9NiJFJQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC0ZTPkdxlAKf-V33tqXwi3Q
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC1szFCBUWXY3ESff8dJjjzw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCP7WmQ_U4GB3K51Od9QvM0w
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCVPjtOVcnKaSRI8IO3KSetA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCfLsPYDDrGaFc9XhfDM-ktA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCnxQ8o9RpqxGF2oLHcCn9VQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCt7fwAhXDy3oNFTAzF2o8Pw
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCuVxaQDraOja6xKidcmoufA
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UC5reApl_5YtfqNEEQi5L8GQ
+*** https://www.youtube.com/feeds/videos.xml?channel_id=UCFl-GzKYeCW3iWjnQDuxzAA
+# https://www.youtube.com/feeds/videos.xml?channel_id= "YOUTUBE"
+# https://rsshub.app/youtube/user/ "YOUTUBE"
+# https://rsshub.app/youtube/channel/ "YOUTUBE"
+# https://rsshub.app/youtube/playlist/ "YOUTUBE"
+
+*** Playlists :playlist:
+**** https://www.youtube.com/feeds/videos.xml?playlist_id=PLBw_afH7YZZuWGqjXj1naoYaNK7sORPFg
+**** https://www.youtube.com/feeds/videos.xml?playlist_id=PLBw_afH7YZZtP9oYiKiRLAmbpoLmfVQU-
+**** https://www.youtube.com/feeds/videos.xml?playlist_id=PLHTh1InhhwT6vjwMy3RG5Tnahw0G9qIx6
+**** https://www.youtube.com/feeds/videos.xml?playlist_id=PLtv-deFJbLmmylOFERLpuywR7gn-QcHeR
+
+** Substack :substack:
+*** https://theap.substack.com/feed
+*** https://thedorkweb.substack.com/feed
+*** https://alexvitale.substack.com/feed
+
+** Blogs :blog:
+*** [[http://www.galactanet.com/feed.xml][Andy Weir]]
+*** https://pluralistic.net/feed/
+*** https://learn.radical-guide.com/feed/
+*** https://www.radical-guide.com/feed/
+*** https://rsshub.app/aflcio/blog
+*** https://rsshub.app/deepmind/blog
+*** https://rsshub.app/openai/blog
+*** https://www.schneier.com/feed/atom/
+**** Music :music:
+***** [[https://www.getalternative.com/feed/]]
+
+** Tumblr :tumblr:
+*** https://mostlysignssomeportents.tumblr.com/rss
+
+** Peer tube :peertube:
+*** [[https://kolektiva.media/feeds/videos.xml?accountId=2840][It's going down (kolektive.media)]]
+*** [[https://kolektiva.media/feeds/videos.xml?sort=-publishedAt&isLocal=true][kolektiva.media Local]]
+
+** Mastodon :mastodon:
+*** Users :mastodonuser:
+**** https://kolektiva.social/users/igd_news.rss
+**** https://kolektiva.social/users/earthfirst.rss
+**** https://kolektiva.social/users/YPJ_Info.rss
+**** https://todon.eu/users/CrimethInc.rss
+**** https://todon.eu/users/RadicalGraffiti.rss
+**** https://mstdn.social/users/Bellingcat.rss
+
+*** Timeline :mastodontl:
+**** https://rsshub.app/mastodon/timeline/kolektiva.social
+
+** Film :film:
+*** https://watch.radical-guide.com/feed/
+
+** Computer science :cs:
+*** https://rsshub.app/leetcode/dailyquestion/en
+*** https://rsshub.app/leetcode/dailyquestion/solution/en
+*** https://rsshub.app/ieee-security/security-privacy
+*** https://infocon.org/infocon.org-css/infoconorg-cons.rss
+*** https://infocon.org/infocon.org-css/infoconorg-podcasts.rss
+*** https://infocon.org/infocon.org-css/infoconorg-skills.rss
+
+*** Cons :con:
+**** https://defcon.org/defconrss.xml
+
+*** Github :github:
+**** [[https://github.com/Ocramoi.private.atom?token=ACH4MQUJAA3F2J6U27KGXKOB6OCI6][Github Feed]]
+**** [[https://github.com/Ocramoi.atom][Github personal activity]]
+
+** Journals :journal:
+*** Computer science :compsci:
+**** https://rsshub.app/ieee/journal/8016796
+**** https://rsshub.app/ieee/journal/4156126
+**** https://rsshub.app/ieee/journal/6509491
+**** https://rsshub.app/ieee/journal/8784029
+**** https://rsshub.app/ieee/journal/8782661
+**** https://rsshub.app/ieee/journal/8016804
+**** https://rsshub.app/ieee/journal/2
+**** https://rsshub.app/ieee/journal/8016794
+**** https://rsshub.app/ieee/journal/6720219
+**** https://rsshub.app/ieee/journal/8012254
+**** https://rsshub.app/ieee/journal/12
+**** https://rsshub.app/ieee/journal/43
+**** https://rsshub.app/ieee/journal/5992
+**** https://rsshub.app/ieee/journal/4434
+**** https://rsshub.app/ieee/journal/5962380
+**** https://rsshub.app/ieee/journal/6221038
+**** https://rsshub.app/ieee/journal/4563995
+**** https://rsshub.app/ieee/journal/10908
+**** https://rsshub.app/ieee/journal/6720222
+**** https://rsshub.app/ieee/journal/5288519
+**** https://rsshub.app/ieee/journal/5288520
+**** https://rsshub.app/ieee/journal/18
+**** https://rsshub.app/ieee/journal/9944931
+**** https://rsshub.app/ieee/journal/9195266
+**** https://rsshub.app/ieee/journal/9670
+**** https://rsshub.app/ieee/journal/8784355
+**** https://rsshub.app/ieee/journal/7274857
+**** https://rsshub.app/ieee/journal/8016801
+**** https://rsshub.app/ieee/journal/4236
+**** https://rsshub.app/ieee/journal/8548628
+**** https://rsshub.app/ieee/journal/9907
+**** https://rsshub.app/ieee/journal/6720223
+**** https://rsshub.app/ieee/journal/8016816
+**** https://rsshub.app/ieee/journal/65
+**** https://rsshub.app/ieee/journal/8253410
+**** https://rsshub.app/ieee/journal/6720226
+**** https://rsshub.app/ieee/journal/5962385
+**** https://rsshub.app/ieee/journal/8016799
+**** https://rsshub.app/ieee/journal/71
+**** https://rsshub.app/ieee/journal/34
+**** https://rsshub.app/ieee/journal/8016814
+**** https://rsshub.app/ieee/journal/8964404
+**** https://rsshub.app/ieee/journal/52
+**** https://rsshub.app/ieee/journal/4267003
+
+*** Science :science:
+**** https://rsshub.app/science/current/science
+**** https://rsshub.app/science/current/sciadv
+**** https://rsshub.app/science/current/scirobotics
+**** https://rsshub.app/science/current/signaling
+**** https://rsshub.app/science/cover
+
+** Reddit :reddit:
+*** [[https://www.reddit.com/.rss?feed=d5ea1e011df6fe7de9c298dbf4d33a5fe27928f6&user=ocramoidev][Reddit front page]]
+*** [[https://www.reddit.com/saved.rss?feed=d5ea1e011df6fe7de9c298dbf4d33a5fe27928f6&user=ocramoidev][Reddit saved]]
+*** [[https://www.reddit.com/message/inbox/.rss?feed=d5ea1e011df6fe7de9c298dbf4d33a5fe27928f6&user=ocramoidev][Reddit inbox]]
+
+** Wikis :wiki:
+*** [[https://www.emacswiki.org/emacs?action=rss][Emacs Wiki]]

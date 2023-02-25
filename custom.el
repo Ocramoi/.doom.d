@@ -10,10 +10,10 @@
  '(company-meghanada-insert-args t)
  '(fancy-splash-image
    "/home/ocramoi/.emacs.d/modules/ui/doom-dashboard/banners/default.png")
- '(markdown-command '+markdown-compile)
+ '(markdown-command '+markdown-compile t)
  '(markdown-command-needs-filename nil)
  '(markdown-live-preview-window-function 'markdown-live-preview-window-eww)
- '(markdown-open-command "xdg-open")
+ '(markdown-open-command "xdg-open" t)
  '(markdown-split-window-direction 'right)
  '(meghanada-completion-matcher "prefix")
  '(meghanada-debug t)
