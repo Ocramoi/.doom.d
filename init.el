@@ -47,6 +47,9 @@
 ;; dictionary' even though multiple dictionaries will be configured
 ;; in next line.
 (setenv "LANG" "en_US.UTF-8")
+(custom-set-variables
+ '(org-directory "~/org")
+ '(org-agenda-files (list org-directory)))
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
