@@ -50,6 +50,8 @@
 (custom-set-variables
  '(org-directory "~/org")
  '(org-agenda-files (list org-directory)))
+(eval-after-load 'treemacs
+  '(treemacs-project-follow-mode))
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
