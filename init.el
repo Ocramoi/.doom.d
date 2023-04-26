@@ -60,12 +60,31 @@
  (lambda ()
    (org-sticky-header-mode)
    (setq org-image-actual-width nil)
+   (setq org-pretty-entities t)
    ))
 (add-hook
  'org-tree-slide-mode
  (lambda ()
    (org-display-inline-images)
    ))
+
+;; == CSHARP ==
+
+;; Razor support
+(use-package omnisharp
+  :defer t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-omnisharp)
+  (add-hook 'csharp-mode-hook 'flycheck-mode)
+  (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  )
+(add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
+;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
+;; (eval-after-load 'company
+;;   '(add-to-list 'company-backends 'company-omnisharp))
+;; (add-hook 'csharp-mode-hook #'company-mode)
+;; (add-hook 'csharp-mode-hook #'flycheck-mode)
 
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
@@ -104,6 +123,7 @@
    (ispell-change-dictionary "pt_BR,en_US")
    (setq ispell-alternate-dictionary "pt_BR,en_US")
    (setq ispell-personal-dictionary "~/.hunspell_personal")
+   (setq-local company-ispell-dictionary (file-truename "/usr/share/dict/words"))
    )
  )
 
@@ -156,6 +176,12 @@
 
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
+
+;; (eval-after-load 'company
+;;   '(add-to-list 'company-backends 'company-yasnippet))
+
+;; (eval-after-load 'company
+;;   '(yas-global-mode 1))
 
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
@@ -210,9 +236,15 @@
 )
 
 ;; == Text mode ==
-;; (defun enable-ispell-portuguese ()
-;;   (interactive)
-;;   (setq-local company-ispell-dictionary (file-truename "/home/ocramoi/listaPalavrasPtBrEmacs.txt")))
+(defun set-completion-dictionary (choice)
+  "Select dictionary for word suggestion"
+  (interactive
+   (list
+    (completing-read "Choose: "
+                     '(("pt-br" . "pt-br") ("usa" . "usa")) nil t)))
+  (message "Selected dictionary: /usr/share/dict/%s" choice)
+  (setq-local company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice)))
+  )
 
 ;; (defun disable-ispell-portuguese ()
 ;;   (interactive)
@@ -421,7 +453,7 @@
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        rst               ; ReST in peace
-       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps

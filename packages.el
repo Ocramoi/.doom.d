@@ -107,3 +107,6 @@
 (package! org-ros)
 (package! org-sticky-header)
 (package! org-tree-slide)
+(package! osc)
+(package! sonic-pi)
+(package! omnisharp)
