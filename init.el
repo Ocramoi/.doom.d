@@ -121,9 +121,11 @@
    (ispell-hunspell-add-multi-dic "pt_BR,en_US") ;;
    (defun ispell-get-coding-system () 'utf-8) ;;
    (ispell-change-dictionary "pt_BR,en_US")
-   (setq ispell-alternate-dictionary "pt_BR,en_US")
+   ;; (setq ispell-alternate-dictionary "pt_BR,en_US")
+   (setq ispell-alternate-dictionary "en_US")
    (setq ispell-personal-dictionary "~/.hunspell_personal")
-   (setq-local company-ispell-dictionary (file-truename "/usr/share/dict/words"))
+   ;; (setq company-ispell-dictionary (file-truename "/usr/share/dict/words"))
+   ;; (add-to-list 'company-backends 'company-ispell)
    )
  )
 
@@ -206,10 +208,19 @@
   (setq dap-python-debugger 'debugpy))
 
 ;; == flycheck ==
+(use-package flycheck
+  :defer t
+  :config
+  (setq flycheck-clang-language-standard "c++17")
+  (setq flycheck-gcc-language-standard "c++17"))
+
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++17")))
+
 (use-package flycheck-clang-analyzer
   :defer t
   :after flycheck
-  :config 
+  :config
   (setq flycheck-clang-language-standard "c++17")
   (setq flycheck-gcc-language-standard "c++17")
   (flycheck-clang-analyzer-setup))
@@ -243,7 +254,7 @@
     (completing-read "Choose: "
                      '(("pt-br" . "pt-br") ("usa" . "usa")) nil t)))
   (message "Selected dictionary: /usr/share/dict/%s" choice)
-  (setq-local company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice)))
+  (setq company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice)))
   )
 
 ;; (defun disable-ispell-portuguese ()
