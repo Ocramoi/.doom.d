@@ -110,3 +110,12 @@
 (package! osc)
 (package! sonic-pi)
 (package! omnisharp)
+(package! nerd-icons)
+(package! lsp-haskell)
+(package! company-ghci)
+(package! ccls)
+(package! eglot)
+(package! lsp-ui)
+(package! flx-ido)
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))

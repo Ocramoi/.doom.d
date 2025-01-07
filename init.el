@@ -60,13 +60,31 @@
  (lambda ()
    (org-sticky-header-mode)
    (setq org-image-actual-width nil)
-   (setq org-pretty-entities t)
-   ))
+   (setq org-pretty-entities t)))
+
 (add-hook
  'org-tree-slide-mode
  (lambda ()
-   (org-display-inline-images)
-   ))
+   (org-display-inline-images)))
+
+
+;; (use-package nerd-icons)
+;; (setq inhibit-compacting-font-caches t)
+(setq doom-modeline-icon nil)
+
+;; accept completion from copilot and fallback to company
+(use-package copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; == HASKELL ==
+(add-hook
+ 'haskell-mode
+ '(add-to-list 'company-backends 'company-ghci))
 
 ;; == CSHARP ==
 
@@ -77,8 +95,8 @@
   :config
   (add-to-list 'company-backends 'company-omnisharp)
   (add-hook 'csharp-mode-hook 'flycheck-mode)
-  (add-hook 'csharp-mode-hook 'omnisharp-mode)
-  )
+  (add-hook 'csharp-mode-hook 'omnisharp-mode))
+
 (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
 ;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
 ;; (eval-after-load 'company
@@ -123,11 +141,11 @@
    (ispell-change-dictionary "pt_BR,en_US")
    ;; (setq ispell-alternate-dictionary "pt_BR,en_US")
    (setq ispell-alternate-dictionary "en_US")
-   (setq ispell-personal-dictionary "~/.hunspell_personal")
+   (setq ispell-personal-dictionary "~/.hunspell_personal")))
    ;; (setq company-ispell-dictionary (file-truename "/usr/share/dict/words"))
    ;; (add-to-list 'company-backends 'company-ispell)
-   )
- )
+
+
 
 ;; == imenu ==
 (setq imenu-list-auto-resize t)
@@ -153,24 +171,36 @@
 (setq vterm-ignore-blink-cursor nil)
 (global-set-key (kbd "C-'") '+vterm/toggle)
 
+;; == PlatformIO ==
+(add-to-list 'auto-mode-alist '("\\.ino$" . arduino-mode))
+
 ;; == irony-mode ==
-(use-package irony
+(use-package lsp
   :defer t
   :init
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  :config
-  ;; replace the `completion-at-point' and `complete-symbol' bindings in
-  ;; irony-mode's buffers by irony-mode's function
-  ;;(defun my-irony-mode-hook ()
-  ;;   (define-key irony-mode-map [remap completion-at-point]
-  ;;   'irony-completion-at-point-async)
-  ;;   (define-key irony-mode-map [remap complete-symbol]
-  ;;   'irony-completion-at-point-async))
-  ;;(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-)
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
+  (add-hook 'objc-mode-hook 'lsp))
+
+;; (use-package irony
+;;   :defer t
+;;   :init
+;;   (add-hook 'c++-mode-hook 'irony-mode)
+;;   (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
+;;   (add-hook 'c-mode-hook 'irony-mode)
+;;   (add-hook 'objc-mode-hook 'irony-mode)
+;;   :config
+;;   ;; replace the `completion-at-point' and `complete-symbol' bindings in
+;;   ;; irony-mode's buffers by irony-mode's function
+;;   ;;(defun my-irony-mode-hook ()
+;;   ;;   (define-key irony-mode-map [remap completion-at-point]
+;;   ;;   'irony-completion-at-point-async)
+;;   ;;   (define-key irony-mode-map [remap complete-symbol]
+;;   ;;   'irony-completion-at-point-async))
+;;   ;;(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;; )
 
 ;; == company-mode ==
 (use-package company
@@ -206,24 +236,62 @@
 ;; == Python ==
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
+;; (after! elpy-mode
+;;   (setq! elpy-rpc-ignored-buffer-size 110000))
+;; (setq! elpy-rpc-ignored-buffer-size 110000)
+(setq! elpy-rpc-ignored-buffer-size 999999)
+
+;; == HELM ==
+(helm-mode 1)
+(use-package helm
+  :ensure t
+  :config
+  ;; (helm-mode 1)
+  (setq! helm-recentf-fuzzy-match t))
+  ;; (define-key global-map [remap recentf-open-files] #'helm-recentf)
+  ;; (define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
+  ;; (define-key global-map [remap find-file] #'helm-find-files)
+  ;; (define-key global-map [remap execute-extended-command] #'helm-M-x)
+  ;; (define-key global-map [remap switch-to-buffer] #'helm-mini)
+  ;; :bind
+  ;; ([remap find-file] . #'helm-find-files)
+  ;; ("SPC f r" . helm-recentf-fuzzy-match)
+  ;; ("C-<next>" . centaur-tabs-forward)
+  ;; ("C-{" . centaur-tabs-backward)
+  ;; ("C-}" . centaur-tabs-forward)
+
+(define-key global-map [remap recentf-open-files] #'helm-recentf)
+(define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
+(define-key global-map [remap find-file] #'helm-find-files)
+(define-key global-map [remap execute-extended-command] #'helm-M-x)
+(define-key global-map [remap switch-to-buffer] #'helm-mini)
+;; (after! helm-mode
+;;   )
+
+;; == ccls ==
+(after! ccls
+  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
 
 ;; == flycheck ==
-(use-package flycheck
-  :defer t
-  :config
-  (setq flycheck-clang-language-standard "c++17")
-  (setq flycheck-gcc-language-standard "c++17"))
+;; (use-package flycheck
+;;   :defer t
+;;   :config
+;;   (setq flycheck-clang-language-standard "c++17")
+;;   (setq flycheck-gcc-language-standard "c++17"))
 
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++17")))
+;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
+;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++17")))
+;; (add-hook 'c-mode-hook (lambda () (setq flycheck-gcc-language-standard "c17")))
+;; (add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "c17")))
 
-(use-package flycheck-clang-analyzer
-  :defer t
-  :after flycheck
-  :config
-  (setq flycheck-clang-language-standard "c++17")
-  (setq flycheck-gcc-language-standard "c++17")
-  (flycheck-clang-analyzer-setup))
+;; (use-package flycheck-clang-analyzer
+;;   :defer t
+;;   :after flycheck
+;;   :config
+;;   (setq flycheck-clang-language-standard "c++17")
+;;   (setq flycheck-gcc-language-standard "c++17")
+;;   (flycheck-clang-analyzer-setup))
 
 ;; Latex
 (setq TeX-auto-save t)
@@ -243,8 +311,8 @@
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward)
   ("C-{" . centaur-tabs-backward)
-  ("C-}" . centaur-tabs-forward)
-)
+  ("C-}" . centaur-tabs-forward))
+
 
 ;; == Text mode ==
 (defun set-completion-dictionary (choice)
@@ -254,8 +322,8 @@
     (completing-read "Choose: "
                      '(("pt-br" . "pt-br") ("usa" . "usa")) nil t)))
   (message "Selected dictionary: /usr/share/dict/%s" choice)
-  (setq company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice)))
-  )
+  (setq company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice))))
+
 
 ;; (defun disable-ispell-portuguese ()
 ;;   (interactive)
@@ -288,12 +356,14 @@
 ;; (global-set-key (kbd "C-x <right>") 'windmove-right)
 
 ;; Java
-(add-hook 'java-mode-hook
-        (lambda ()
-                (meghanada-mode t)
-                (flycheck-mode +1)
-                (setq c-basic-offset 4)))
-(setq meghanada-java-path "/usr/bin/java")
+;; (add-hook 'java-mode-hook
+;;         (lambda ()
+;;                 (meghanada-mode t)
+;;                 (flycheck-mode +1)
+;;                 (setq c-basic-offset 4)))
+;; (setq meghanada-java-path "/usr/bin/java")
+(setenv "JAVA_HOME"  "/usr/lib/jvm/java-8-openjdk/jre")
+(setq lsp-java-java-path "$JAVA_HOME/bin/java")
 
 ;; Org mode ;;
 (with-eval-after-load 'ox-latex
@@ -303,8 +373,8 @@
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-)
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
 
 ;; Custom hooks ;;
 (global-set-key (kbd "C-s") 'save-buffer)
@@ -329,24 +399,23 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       (company +childframe)           ; the ultimate code completion backend
+       (helm +fuzzy)              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       ;; ivy               ; a search engine for love and life
 
        :ui
-       ;;deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
-       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
-       ;;nav-flash         ; blink cursor line after big motions
+       nav-flash         ; blink cursor line after big motions
        ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
@@ -368,8 +437,8 @@
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       ;;parinfer          ; turn lisp into python, sort of
-       ;;rotate-text       ; cycle region at point between text candidates
+       parinfer          ; turn lisp into python, sort of
+       rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        ;;word-wrap         ; soft wrapping with language-aware indent
 
@@ -394,22 +463,22 @@
        :tools
        ;;ansible
        debugger          ; FIXME stepping through code, to help you add bugs
-       ;;direnv
+       direnv
        docker
        editorconfig      ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame Jupyter notebooks with emacs
+       ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp
+       (lsp +eglot)
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       rgb               ; creating color strings
+       ;; rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
-       ;;terraform         ; infrastructure as code
+       terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        upload            ; map local to remote projects via ssh/ftp
 
@@ -424,24 +493,25 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       csharp            ; unity, .NET, and mono shenanigans
+       ;; csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
-       ;;ess               ; emacs speaks statistics
+       ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        (go +lsp)         ; the hipster dialect
-       ;;(haskell +dante)  ; a language that's lazier than I am
+       (haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
        (java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;; (java +lsp) ; the poster child for carpal tunnel syndrome
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -455,8 +525,8 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        org               ; organize your plain life in plain text
-       php               ; perl's insecure younger brother
-       plantuml          ; diagrams for confusing people more
+       ;; php               ; perl's insecure younger brother
+       ;; plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
        qt                ; the 'cutest' gui framework ever
@@ -465,7 +535,7 @@
        rest              ; Emacs as a REST client
        rst               ; ReST in peace
        (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
@@ -484,8 +554,8 @@
        :app
        calendar
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
-       twitter           ; twitter client https://twitter.com/vnought
+       (rss +org)        ; emacs as an RSS reader
+       ;; twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
