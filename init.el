@@ -71,7 +71,7 @@
 
 ;; (use-package nerd-icons)
 ;; (setq inhibit-compacting-font-caches t)
-(setq doom-modeline-icon nil)
+;;(setq doom-modeline-icon nil)
 
 ;; accept completion from copilot and fallback to company
 (use-package copilot
@@ -81,6 +81,26 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; == tsx ==
+(define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
+  "A major mode for tsx.")
+
+(use-package typescript-mode
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . typescriptreact-mode)))
+
+(use-package eglot
+  :ensure t
+  :defer 3
+  :hook
+  ((js-mode
+    typescript-mode
+    typescriptreact-mode) . eglot-ensure)
+  :config
+  (cl-pushnew '((js-mode typescript-mode typescriptreact-mode) . ("typescript-language-server" "--stdio"))
+              eglot-server-programs
+              :test #'equal))
 
 ;; == HASKELL ==
 (add-hook
@@ -434,7 +454,7 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       format  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once

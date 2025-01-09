@@ -117,5 +117,6 @@
 (package! eglot)
 (package! lsp-ui)
 (package! flx-ido)
+(package! centaur-tabs :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74" :recipe (:build (:not compile)))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
