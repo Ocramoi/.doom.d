@@ -120,3 +120,4 @@
 (package! centaur-tabs :pin "d6009c295a4363930247ae9a4d1125aea4d3fd74" :recipe (:build (:not compile)))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! typescript-tsx-mode :disable t)
