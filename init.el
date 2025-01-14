@@ -90,6 +90,12 @@
   :mode (("\\.ts\\'" . typescript-mode)
          ("\\.tsx\\'" . typescriptreact-mode)))
 
+(use-package typescript-tsx-mode
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . typescriptreact-mode)))
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescriptreact-mode))
+
 (use-package eglot
   :ensure t
   :defer 3
@@ -281,7 +287,7 @@
   ;; ("C-}" . centaur-tabs-forward)
 
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
-(define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
+(define-key global-map [remap +default/search-project] #'+helm/project-search)
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
