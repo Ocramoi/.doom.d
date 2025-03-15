@@ -53,6 +53,15 @@
  '(org-agenda-files (list org-directory)))
 (eval-after-load 'treemacs
   '(treemacs-project-follow-mode))
+(advice-add 'json-parse-string :around
+        (lambda (orig string &rest rest)
+          (apply orig (s-replace "\\u0000" "" string)
+                 rest)))
+;; (advice-add 'json-parse-buffer :around
+;;         (lambda (orig &rest rest)
+;;           (while (re-search-forward "\\u0000" nil t))
+;;           (replace-match "")
+;;           (apply orig rest)))
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
@@ -75,12 +84,12 @@
 
 ;; accept completion from copilot and fallback to company
 (use-package copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+ :hook (prog-mode . copilot-mode)
+ :bind (:map copilot-completion-map
+             ("<tab>" . 'copilot-accept-completion)
+             ("TAB" . 'copilot-accept-completion)
+             ("C-TAB" . 'copilot-accept-completion-by-word)
+             ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 ;; == tsx ==
 (define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
@@ -106,7 +115,12 @@
   :config
   (cl-pushnew '((js-mode typescript-mode typescriptreact-mode) . ("typescript-language-server" "--stdio"))
               eglot-server-programs
-              :test #'equal))
+              :test #'equal)
+  (cl-pushnew '((js-mode typescript-mode typescript-tsx-mode) . ("typescript-language-server" "--stdio"))
+              eglot-server-programs
+              :test #'equal)
+ )
+
 
 ;; == HASKELL ==
 (add-hook
@@ -504,7 +518,7 @@
        pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;; rgb               ; creating color strings
+       rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
