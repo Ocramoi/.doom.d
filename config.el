@@ -58,3 +58,37 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq find-file-visit-truename nil)
+(package-initialize)
+
+;; == copilot ==
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+ :hook (prog-mode . copilot-mode)
+ :bind (:map copilot-completion-map
+             ("<tab>" . 'copilot-accept-completion)
+             ("TAB" . 'copilot-accept-completion)
+             ("C-TAB" . 'copilot-accept-completion-by-word)
+             ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; == powerline ==
+(use-package powerline
+  :ensure t)
+
+;; == centaur-tabs ==
+(use-package centaur-tabs
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-set-bar 'left)
+  (centaur-tabs-group-by-projectile-project)
+  :bind
+    ("C-<prior>" . centaur-tabs-backward)
+    ("C-<next>" . centaur-tabs-forward)
+    ("C-{" . centaur-tabs-backward)
+    ("C-}" . centaur-tabs-forward))
+
+;; == lsp ==
+(use-package lsp-ui)

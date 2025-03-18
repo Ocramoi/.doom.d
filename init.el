@@ -17,28 +17,6 @@
 ;; == use-package ==
 ;;{{{ Set up package and use-package
 
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; Bootstrap 'use-package'
-(eval-after-load 'gnutls
-  '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-(require 'bind-key)
-;; (setq use-package-always-ensure t)
-
-(eval-when-compile
-  ;; Following line is not needed if use-package.el is in ~/.emacs.d
-  (require 'use-package))
-
-;;}}}
-
 ;; == GLOBAL ==
 (setq package-check-signature nil)
 (setq frame-inhibit-implied-resize nil)
@@ -82,15 +60,6 @@
 ;; (setq inhibit-compacting-font-caches t)
 ;;(setq doom-modeline-icon nil)
 
-;; accept completion from copilot and fallback to company
-(use-package copilot
- :hook (prog-mode . copilot-mode)
- :bind (:map copilot-completion-map
-             ("<tab>" . 'copilot-accept-completion)
-             ("TAB" . 'copilot-accept-completion)
-             ("C-TAB" . 'copilot-accept-completion-by-word)
-             ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
 ;; == tsx ==
 (define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
   "A major mode for tsx.")
@@ -126,8 +95,6 @@
 (add-hook
  'haskell-mode
  '(add-to-list 'company-backends 'company-ghci))
-
-;; == CSHARP ==
 
 ;; Razor support
 (use-package omnisharp
@@ -193,16 +160,11 @@
 (setq imenu-list-idle-update-delay 0.5)
 ;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
-;; == lsp-ui ==
-(use-package lsp-ui
-  :defer t)
-(add-hook 'prog-mode-hook 'lsp-ui-mode)
-
 ;; == vue ==
 (add-hook 'vue-mode-hook #'lsp!)
 
 ;; == rainbow-delimiters ==
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
@@ -215,15 +177,10 @@
 ;; == PlatformIO ==
 (add-to-list 'auto-mode-alist '("\\.ino$" . arduino-mode))
 
-;; == irony-mode ==
-(use-package lsp
-  :defer t
-  :init
-  (add-hook 'c-mode-hook 'lsp)
-  (add-hook 'c++-mode-hook 'lsp)
-  (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
-  (add-hook 'objc-mode-hook 'lsp))
+;; == lsp ==
+(add-hook 'c++-mode-hook 'platformio-conditionally-enable)
 
+;; == irony-mode ==
 ;; (use-package irony
 ;;   :defer t
 ;;   :init
@@ -244,11 +201,11 @@
 ;; )
 
 ;; == company-mode ==
-(use-package company
-  :defer t)
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+(with-eval-after-load 'company 
+  '(add-hook 'prog-mode-hook #'company-quickhelp-mode)
+  '(add-to-list 'company-backends 'company-irony)
+  '(add-to-list 'company-backends 'company-lsp)
+  '(add-to-list 'company-backends 'company-irony-c-headers))
 
 ;; (eval-after-load 'company
 ;;   '(add-to-list 'company-backends 'company-yasnippet))
@@ -258,21 +215,11 @@
 
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
-(add-hook 'prog-mode-hook 'company-quickhelp-mode)
+;;(use-package company-quickhelp
+;;  :defer t
+;;  :init
+;;  (add-hook 'prog-mode-hook 'company-quickhelp-mode))
 ;; (setq elpy-rpc-virtualenv-path 'system)
-
-(eval-after-load 'company
- '(add-to-list 'company-backends 'company-irony-c-headers))
-
-;; (use-package rtags)
-;; (use-package company-rtags)
-
-;; (setq rtags-completions-enabled t)
-;; (eval-after-load 'company
-;;  '(add-to-list
-;;    'company-backends 'company-rtags))
-;; (setq rtags-autostart-diagnostics t)
-;; (rtags-enable-standard-keybindings)
 
 ;; == Python ==
 (after! dap-mode
@@ -283,11 +230,11 @@
 (setq! elpy-rpc-ignored-buffer-size 999999)
 
 ;; == HELM ==
-(use-package helm
-  :ensure t
-  :config
+;;(use-package helm
+;;  :ensure t
+;;  :config
   ;; (helm-mode 1)
-  (setq! helm-recentf-fuzzy-match t))
+;;  (setq! helm-recentf-fuzzy-match t))
   ;; (define-key global-map [remap recentf-open-files] #'helm-recentf)
   ;; (define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
   ;; (define-key global-map [remap find-file] #'helm-find-files)
@@ -299,7 +246,7 @@
   ;; ("C-<next>" . centaur-tabs-forward)
   ;; ("C-{" . centaur-tabs-backward)
   ;; ("C-}" . centaur-tabs-forward)
-
+(setq! helm-recentf-fuzzy-match t)
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
 (define-key global-map [remap +default/search-project] #'+helm/project-search)
 (define-key global-map [remap find-file] #'helm-find-files)
@@ -307,11 +254,6 @@
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
 ;; (after! helm-mode
 ;;   )
-
-;; == ccls ==
-(after! ccls
-  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
-  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
 
 ;; == flycheck ==
 ;; (use-package flycheck
@@ -337,22 +279,6 @@
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
-
-;; == centaur-tabs ==
-(use-package centaur-tabs
-  :ensure t
-  :config
-  (centaur-tabs-mode t)
-  (setq centaur-tabs-set-modified-marker t
-        centaur-tabs-set-bar 'left)
-  (centaur-tabs-group-by-projectile-project)
-  ;; (centaur-tabs-mode t)
-  :bind
-  ("C-<prior>" . centaur-tabs-backward)
-  ("C-<next>" . centaur-tabs-forward)
-  ("C-{" . centaur-tabs-backward)
-  ("C-}" . centaur-tabs-forward))
-
 
 ;; == Text mode ==
 (defun set-completion-dictionary (choice)
@@ -464,7 +390,7 @@
        tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
-       vc-gutter         ; vcs diff in the fringe
+       (vc-gutter +pretty)         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
@@ -530,7 +456,7 @@
 
        :lang
        ;;agda              ; types of types of types of types...
-       cc                ; C/C++/Obj-C madness
+       (cc +lsp)                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -540,9 +466,9 @@
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
-       emacs-lisp        ; drown in parentheses
+       (emacs-lisp +lsp)        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
-       ess               ; emacs speaks statistics
+       (ess +lsp)               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
@@ -571,7 +497,7 @@
        ;; plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyenv)            ; beautiful is better than ugly
-       qt                ; the 'cutest' gui framework ever
+       (qt +lsp)                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
@@ -585,7 +511,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web +lsp)               ; the tubes
        yaml              ; JSON, but readable
 
        :email
