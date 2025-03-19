@@ -14,35 +14,9 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-;; == use-package ==
-;;{{{ Set up package and use-package
-
-(when (version< emacs-version "30.0")
- (require 'package)
- (add-to-list 'package-archives
-              '("melpa" . "https://melpa.org/packages/") t)
- (package-initialize)
-
-;; Bootstrap 'use-package'
- (eval-after-load 'gnutls
-   '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
- (unless (package-installed-p 'use-package)
-   (package-refresh-contents)
-   (package-install 'use-package))
- (eval-when-compile
-   (require 'use-package))
- (require 'bind-key)
-;; (setq use-package-always-ensure t)
-
- (eval-when-compile
-   ;; Following line is not needed if use-package.el is in ~/.emacs.d
-   (require 'use-package)))
-
-;;}}}
-
 ;; == GLOBAL ==
-(setq package-check-signature nil)
 (setq frame-inhibit-implied-resize nil)
+(setq package-check-signature nil)
 (with-eval-after-load 'org
   (setq org-directory "~/org"))
 ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
@@ -79,35 +53,6 @@
 ;; (use-package nerd-icons)
 ;; (setq inhibit-compacting-font-caches t)
 ;;(setq doom-modeline-icon nil)
-
-;; == tsx ==
-(define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
-  "A major mode for tsx.")
-
-(use-package typescript-mode
-  :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescriptreact-mode)))
-
-(use-package typescript-tsx-mode
-  :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescriptreact-mode)))
-
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescriptreact-mode))
-
-(use-package eglot
-  :ensure t
-  :defer 3
-  :hook
-  ((js-mode
-    typescript-mode
-    typescriptreact-mode) . eglot-ensure)
-  :config
-  (cl-pushnew '((js-mode typescript-mode typescriptreact-mode) . ("typescript-language-server" "--stdio"))
-              eglot-server-programs
-              :test #'equal)
-  (cl-pushnew '((js-mode typescript-mode typescript-tsx-mode) . ("typescript-language-server" "--stdio"))
-              eglot-server-programs
-              :test #'equal))
 
 ;; == HASKELL ==
 (add-hook
@@ -432,7 +377,7 @@
 
        :tools
        ;;ansible
-       ;;(debugger +lsp)          ; FIXME stepping through code, to help you add bugs
+       (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
        direnv
        (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces

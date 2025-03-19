@@ -49,7 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;;(package! use-package)
 ;; == lsp ==
 (package! rainbow-delimiters)
 (package! zenity-color-picker)
@@ -113,3 +112,4 @@
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
 (package! eslint-fix)
+(package! lsp-tailwindcss)
