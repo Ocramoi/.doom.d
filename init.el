@@ -17,6 +17,29 @@
 ;; == use-package ==
 ;;{{{ Set up package and use-package
 
+(when (version< emacs-version "30.0")
+ (require 'package)
+ (add-to-list 'package-archives
+              '("melpa" . "https://melpa.org/packages/") t)
+ (package-initialize)
+
+;; Bootstrap 'use-package'
+ (eval-after-load 'gnutls
+   '(add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem"))
+ (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+ (eval-when-compile
+   (require 'use-package))
+ (require 'bind-key)
+;; (setq use-package-always-ensure t)
+
+ (eval-when-compile
+   ;; Following line is not needed if use-package.el is in ~/.emacs.d
+   (require 'use-package)))
+
+;;}}}
+
 ;; == GLOBAL ==
 (setq package-check-signature nil)
 (setq frame-inhibit-implied-resize nil)
@@ -31,15 +54,12 @@
  '(org-agenda-files (list org-directory)))
 (eval-after-load 'treemacs
   '(treemacs-project-follow-mode))
-(advice-add 'json-parse-string :around
-        (lambda (orig string &rest rest)
-          (apply orig (s-replace "\\u0000" "" string)
-                 rest)))
-;; (advice-add 'json-parse-buffer :around
-;;         (lambda (orig &rest rest)
-;;           (while (re-search-forward "\\u0000" nil t))
-;;           (replace-match "")
-;;           (apply orig rest)))
+(advice-add 'json-parse-buffer :around
+              (lambda (orig &rest rest)
+                (save-excursion
+                  (while (re-search-forward "\\\\u0000" nil t)
+                    (replace-match "")))
+                (apply orig rest)))
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
@@ -87,30 +107,12 @@
               :test #'equal)
   (cl-pushnew '((js-mode typescript-mode typescript-tsx-mode) . ("typescript-language-server" "--stdio"))
               eglot-server-programs
-              :test #'equal)
- )
-
+              :test #'equal))
 
 ;; == HASKELL ==
 (add-hook
  'haskell-mode
  '(add-to-list 'company-backends 'company-ghci))
-
-;; Razor support
-(use-package omnisharp
-  :defer t
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-omnisharp)
-  (add-hook 'csharp-mode-hook 'flycheck-mode)
-  (add-hook 'csharp-mode-hook 'omnisharp-mode))
-
-(add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
-;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
-;; (eval-after-load 'company
-;;   '(add-to-list 'company-backends 'company-omnisharp))
-;; (add-hook 'csharp-mode-hook #'company-mode)
-;; (add-hook 'csharp-mode-hook #'flycheck-mode)
 
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
@@ -201,7 +203,7 @@
 ;; )
 
 ;; == company-mode ==
-(with-eval-after-load 'company 
+(with-eval-after-load 'company
   '(add-hook 'prog-mode-hook #'company-quickhelp-mode)
   '(add-to-list 'company-backends 'company-irony)
   '(add-to-list 'company-backends 'company-lsp)

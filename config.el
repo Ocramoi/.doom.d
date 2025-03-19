@@ -91,4 +91,4 @@
     ("C-}" . centaur-tabs-forward))
 
 ;; == lsp ==
-(use-package lsp-ui)
+(use-package! lsp-ui)
