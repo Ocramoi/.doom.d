@@ -107,9 +107,6 @@
 (setq imenu-list-idle-update-delay 0.5)
 ;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
-;; == vue ==
-(add-hook 'vue-mode-hook #'lsp!)
-
 ;; == rainbow-delimiters ==
 ;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
@@ -123,8 +120,6 @@
 
 ;; == PlatformIO ==
 (add-to-list 'auto-mode-alist '("\\.ino$" . arduino-mode))
-
-;; == lsp ==
 (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
 
 ;; == irony-mode ==
@@ -314,7 +309,7 @@
        :completion
        (company +childframe)           ; the ultimate code completion backend
        (helm +fuzzy +icons)              ; the *other* search engine for love and life
-       ;;(vertico +icons)
+       (vertico +icons)
        ;;ido               ; the other *other* search engine...
        ;; ivy               ; a search engine for love and life
 
@@ -333,7 +328,7 @@
        nav-flash         ; blink cursor line after big motions
        ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
-       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       (popup +all)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
@@ -361,7 +356,7 @@
        (dired +icons)             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)         ; interactive buffer management
-       (undo +tree)              ; persistent, smarter undo for your inevitable mistakes
+       undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -371,8 +366,8 @@
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell +hunspell)             ; tasing you for misspelling mispelling
+       (syntax +childframe)              ; tasing you for every semicolon you forget
+       (spell +flyspell +hunspell +everywhere)             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -384,14 +379,13 @@
        ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
-       lookup              ; navigate your code and its documentation
-       (lsp +eglot)
-       magit             ; a git porcelain for Emacs
+       (lookup +dictionary)              ; navigate your code and its documentation
+       (lsp +peek)
+       (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
@@ -435,11 +429,11 @@
        ;;factor
        ;;ledger            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       (markdown +grip)          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pandoc +pretty +gnuplot + dragndrop)               ; organize your plain life in plain text
+       (org +pandoc +pretty +gnuplot +dragndrop +gnuplot +journal +jupyter +noter +present +roam2)               ; organize your plain life in plain text
        ;; php               ; perl's insecure younger brother
        ;; plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -449,8 +443,8 @@
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        rst               ; ReST in peace
-       (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        (sh +lsp)                ; she sells {ba,z,fi}sh shells on the C xor

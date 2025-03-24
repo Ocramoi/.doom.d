@@ -89,6 +89,3 @@
     ("C-<next>" . centaur-tabs-forward)
     ("C-{" . centaur-tabs-backward)
     ("C-}" . centaur-tabs-forward))
-
-;; == lsp ==
-(use-package! lsp-ui)
