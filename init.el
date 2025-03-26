@@ -149,73 +149,13 @@
   '(add-to-list 'company-backends 'company-lsp)
   '(add-to-list 'company-backends 'company-irony-c-headers))
 
-;; (eval-after-load 'company
-;;   '(add-to-list 'company-backends 'company-yasnippet))
-
-;; (eval-after-load 'company
-;;   '(yas-global-mode 1))
-
-;; == company-quickhelp-mode ==
-(add-hook 'python-mode-hook 'elpy-enable)
-;;(use-package company-quickhelp
-;;  :defer t
-;;  :init
-;;  (add-hook 'prog-mode-hook 'company-quickhelp-mode))
-;; (setq elpy-rpc-virtualenv-path 'system)
-
-;; == Python ==
-(after! dap-mode
-  (setq dap-python-debugger 'debugpy))
-;; (after! elpy-mode
-;;   (setq! elpy-rpc-ignored-buffer-size 110000))
-;; (setq! elpy-rpc-ignored-buffer-size 110000)
-(setq! elpy-rpc-ignored-buffer-size 999999)
-
 ;; == HELM ==
-;;(use-package helm
-;;  :ensure t
-;;  :config
-  ;; (helm-mode 1)
-;;  (setq! helm-recentf-fuzzy-match t))
-  ;; (define-key global-map [remap recentf-open-files] #'helm-recentf)
-  ;; (define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
-  ;; (define-key global-map [remap find-file] #'helm-find-files)
-  ;; (define-key global-map [remap execute-extended-command] #'helm-M-x)
-  ;; (define-key global-map [remap switch-to-buffer] #'helm-mini)
-  ;; :bind
-  ;; ([remap find-file] . #'helm-find-files)
-  ;; ("SPC f r" . helm-recentf-fuzzy-match)
-  ;; ("C-<next>" . centaur-tabs-forward)
-  ;; ("C-{" . centaur-tabs-backward)
-  ;; ("C-}" . centaur-tabs-forward)
 (setq! helm-recentf-fuzzy-match t)
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
 (define-key global-map [remap +default/search-project] #'+helm/project-search)
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
-;; (after! helm-mode
-;;   )
-
-;; == flycheck ==
-;; (use-package flycheck
-;;   :defer t
-;;   :config
-;;   (setq flycheck-clang-language-standard "c++17")
-;;   (setq flycheck-gcc-language-standard "c++17"))
-
-;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
-;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++17")))
-;; (add-hook 'c-mode-hook (lambda () (setq flycheck-gcc-language-standard "c17")))
-;; (add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "c17")))
-
-;; (use-package flycheck-clang-analyzer
-;;   :defer t
-;;   :after flycheck
-;;   :config
-;;   (setq flycheck-clang-language-standard "c++17")
-;;   (setq flycheck-gcc-language-standard "c++17")
-;;   (flycheck-clang-analyzer-setup))
 
 ;; Latex
 (setq TeX-auto-save t)
