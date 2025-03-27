@@ -113,3 +113,4 @@
 (package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
 (package! eslint-fix)
 (package! lsp-tailwindcss)
+(package! gptel)

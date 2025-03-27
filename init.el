@@ -157,65 +157,19 @@
 
 ;; == company-quickhelp-mode ==
 (add-hook 'python-mode-hook 'elpy-enable)
-;;(use-package company-quickhelp
-;;  :defer t
-;;  :init
-;;  (add-hook 'prog-mode-hook 'company-quickhelp-mode))
-;; (setq elpy-rpc-virtualenv-path 'system)
 
 ;; == Python ==
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
-;; (after! elpy-mode
-;;   (setq! elpy-rpc-ignored-buffer-size 110000))
-;; (setq! elpy-rpc-ignored-buffer-size 110000)
 (setq! elpy-rpc-ignored-buffer-size 999999)
 
 ;; == HELM ==
-;;(use-package helm
-;;  :ensure t
-;;  :config
-  ;; (helm-mode 1)
-;;  (setq! helm-recentf-fuzzy-match t))
-  ;; (define-key global-map [remap recentf-open-files] #'helm-recentf)
-  ;; (define-key global-map [remap +default/search-project] #'+helm/project-search-from-cwd)
-  ;; (define-key global-map [remap find-file] #'helm-find-files)
-  ;; (define-key global-map [remap execute-extended-command] #'helm-M-x)
-  ;; (define-key global-map [remap switch-to-buffer] #'helm-mini)
-  ;; :bind
-  ;; ([remap find-file] . #'helm-find-files)
-  ;; ("SPC f r" . helm-recentf-fuzzy-match)
-  ;; ("C-<next>" . centaur-tabs-forward)
-  ;; ("C-{" . centaur-tabs-backward)
-  ;; ("C-}" . centaur-tabs-forward)
 (setq! helm-recentf-fuzzy-match t)
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
 (define-key global-map [remap +default/search-project] #'+helm/project-search)
 (define-key global-map [remap find-file] #'helm-find-files)
 (define-key global-map [remap execute-extended-command] #'helm-M-x)
 (define-key global-map [remap switch-to-buffer] #'helm-mini)
-;; (after! helm-mode
-;;   )
-
-;; == flycheck ==
-;; (use-package flycheck
-;;   :defer t
-;;   :config
-;;   (setq flycheck-clang-language-standard "c++17")
-;;   (setq flycheck-gcc-language-standard "c++17"))
-
-;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
-;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++17")))
-;; (add-hook 'c-mode-hook (lambda () (setq flycheck-gcc-language-standard "c17")))
-;; (add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "c17")))
-
-;; (use-package flycheck-clang-analyzer
-;;   :defer t
-;;   :after flycheck
-;;   :config
-;;   (setq flycheck-clang-language-standard "c++17")
-;;   (setq flycheck-gcc-language-standard "c++17")
-;;   (flycheck-clang-analyzer-setup))
 
 ;; Latex
 (setq TeX-auto-save t)
@@ -232,44 +186,7 @@
   (message "Selected dictionary: /usr/share/dict/%s" choice)
   (setq company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice))))
 
-
-;; (defun disable-ispell-portuguese ()
-;;   (interactive)
-;;   (setq-local company-ispell-dictionary nil))
-
-;; (defun toggle-company-ispell ()
-;;   (interactive)
-;;   (cond
-;;    ((memq 'company-ispell company-backends)
-;;     (setq company-backends (delete 'company-ispell company-backends))
-;;     (message "company-ispell disabled"))
-;;    (t
-;;     (add-to-list 'company-backends 'company-ispell)
-;;     (message "company-ispell enabled"))))
-
-;; (defun initIspellComplete()
-;;     (setq company-backends (delete 'company-ispell company-backends)))
-
-;; (add-hook 'text-mode-hook 'initIspellComplete)
-;; (add-hook 'markdown-mode-hook 'initIspellComplete)
-;; (add-hook 'org-mode-hook 'initIspellComplete)
-
-;; == Markdown mode ==
-;; (add-hook 'markdown-mode-hook 'markdown-live-preview-mode)
-
-;; Multi pane navigation controls
-;; (global-set-key (kbd "C-x <up>") 'windmove-up)
-;; (global-set-key (kbd "C-x <down>") 'windmove-down)
-;; (global-set-key (kbd "C-x <left>") 'windmove-left)
-;; (global-set-key (kbd "C-x <right>") 'windmove-right)
-
-;; Java
-;; (add-hook 'java-mode-hook
-;;         (lambda ()
-;;                 (meghanada-mode t)
-;;                 (flycheck-mode +1)
-;;                 (setq c-basic-offset 4)))
-;; (setq meghanada-java-path "/usr/bin/java")
+;; == Java ==
 (setenv "JAVA_HOME"  "/usr/lib/jvm/java-8-openjdk/jre")
 (setq lsp-java-java-path "$JAVA_HOME/bin/java")
 
@@ -309,7 +226,7 @@
        :completion
        (company +childframe)           ; the ultimate code completion backend
        (helm +fuzzy +icons)              ; the *other* search engine for love and life
-       (vertico +icons)
+       ;;(vertico +icons)
        ;;ido               ; the other *other* search engine...
        ;; ivy               ; a search engine for love and life
 
@@ -441,7 +358,7 @@
        (qt +lsp)                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
-       rest              ; Emacs as a REST client
+       (rest +jq)              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;; (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()

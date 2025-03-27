@@ -89,3 +89,11 @@
     ("C-<next>" . centaur-tabs-forward)
     ("C-{" . centaur-tabs-backward)
     ("C-}" . centaur-tabs-forward))
+
+;; == rest ==
+(use-package! restclient-jq
+  :after restclient
+  :defer t)
+
+;; == ChatGPT ==
+(use-package! gptel)
