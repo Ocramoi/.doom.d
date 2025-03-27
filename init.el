@@ -149,20 +149,6 @@
   '(add-to-list 'company-backends 'company-lsp)
   '(add-to-list 'company-backends 'company-irony-c-headers))
 
-;; (eval-after-load 'company
-;;   '(add-to-list 'company-backends 'company-yasnippet))
-
-;; (eval-after-load 'company
-;;   '(yas-global-mode 1))
-
-;; == company-quickhelp-mode ==
-(add-hook 'python-mode-hook 'elpy-enable)
-
-;; == Python ==
-(after! dap-mode
-  (setq dap-python-debugger 'debugpy))
-(setq! elpy-rpc-ignored-buffer-size 999999)
-
 ;; == HELM ==
 (setq! helm-recentf-fuzzy-match t)
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
