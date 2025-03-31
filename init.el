@@ -27,7 +27,7 @@
  '(org-directory "~/org")
  '(org-agenda-files (list org-directory)))
 (eval-after-load 'treemacs
-  '(treemacs-project-follow-mode))
+ '(treemacs-project-follow-mode))
 (advice-add 'json-parse-buffer :around
               (lambda (orig &rest rest)
                 (save-excursion
@@ -49,15 +49,18 @@
  (lambda ()
    (org-display-inline-images)))
 
-
-;; (use-package nerd-icons)
-;; (setq inhibit-compacting-font-caches t)
-;;(setq doom-modeline-icon nil)
-
 ;; == HASKELL ==
 (add-hook
  'haskell-mode
  '(add-to-list 'company-backends 'company-ghci))
+
+;; == tailwindcss ==
+(use-package lsp-tailwindcss
+  :after lsp-mode
+  :init
+  (setq lsp-tailwindcss-add-on-mode t)
+  (setq lsp-log-io t)
+  (setq lsp-tailwindcss-emmet-completions t))
 
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
@@ -69,9 +72,6 @@
 
 ;; == Docker ==
 (add-to-list 'auto-mode-alist '("dockerfile" . dockerfile-mode))
-
-;; == RSS ==
-;; (setq rmh-elfeed-org-files '("~/org/elfeed.org"))
 
 ;; == Twitter ==
 (setq twittering-allow-insecure-server-cert t)
@@ -107,9 +107,6 @@
 (setq imenu-list-idle-update-delay 0.5)
 ;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
 
-;; == rainbow-delimiters ==
-;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
           (lambda ()
@@ -121,26 +118,6 @@
 ;; == PlatformIO ==
 (add-to-list 'auto-mode-alist '("\\.ino$" . arduino-mode))
 (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
-
-;; == irony-mode ==
-;; (use-package irony
-;;   :defer t
-;;   :init
-;;   (add-hook 'c++-mode-hook 'irony-mode)
-;;   (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
-;;   (add-hook 'c-mode-hook 'irony-mode)
-;;   (add-hook 'objc-mode-hook 'irony-mode)
-;;   :config
-;;   ;; replace the `completion-at-point' and `complete-symbol' bindings in
-;;   ;; irony-mode's buffers by irony-mode's function
-;;   ;;(defun my-irony-mode-hook ()
-;;   ;;   (define-key irony-mode-map [remap completion-at-point]
-;;   ;;   'irony-completion-at-point-async)
-;;   ;;   (define-key irony-mode-map [remap complete-symbol]
-;;   ;;   'irony-completion-at-point-async))
-;;   ;;(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;; )
 
 ;; == company-mode ==
 (with-eval-after-load 'company
@@ -218,7 +195,7 @@
 
        :ui
        deft              ; notational velocity for Emacs
-       (emoji +github + unicode)
+       (emoji +github +unicode +ascii)
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -233,7 +210,7 @@
        ophints           ; highlight the region an operation acts on
        (popup +all)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       (treemacs +lsp)          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
        (vc-gutter +pretty)         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -270,7 +247,7 @@
 
        :checkers
        (syntax +childframe)              ; tasing you for every semicolon you forget
-       (spell +flyspell +hunspell +everywhere)             ; tasing you for misspelling mispelling
+       (spell +flyspell +hunspell)             ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools

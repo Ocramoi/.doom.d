@@ -62,6 +62,14 @@
 (setq find-file-visit-truename nil)
 (package-initialize)
 
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; == LSP ==
+(setq lsp-headerline-breadcrumb-enable t)
+(setq lsp-lens-enable t)
+
+
 ;; == copilot ==
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
@@ -73,8 +81,7 @@
              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 ;; == powerline ==
-(use-package powerline
-  :ensure t)
+(use-package powerline)
 
 ;; == centaur-tabs ==
 (use-package centaur-tabs
@@ -97,3 +104,15 @@
 
 ;; == ChatGPT ==
 (use-package! gptel)
+
+;; == ellama ==
+(use-package! ellama
+  :bind ("C-c e" . ellama-transient-main-menu)
+  ;; send last message in chat buffer with C-c C-c
+  :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message)
+  :init (setopt ellama-auto-scroll t)
+  :config
+  ;; show ellama context in header line in all buffers
+  (ellama-context-header-line-global-mode +1)
+  ;; show ellama session id in header line in all buffers
+  (ellama-session-header-line-global-mode +1))
