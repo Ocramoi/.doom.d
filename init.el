@@ -26,14 +26,23 @@
 (custom-set-variables
  '(org-directory "~/org")
  '(org-agenda-files (list org-directory)))
-(eval-after-load 'treemacs
- '(treemacs-project-follow-mode))
 (advice-add 'json-parse-buffer :around
               (lambda (orig &rest rest)
                 (save-excursion
                   (while (re-search-forward "\\\\u0000" nil t)
                     (replace-match "")))
                 (apply orig rest)))
+
+(setq! bibtex-completion-bibliography '("~/org/bibliography.bib")
+       bibtex-completion-library-path '("~/org/bibliography")
+       bibtex-completion-notes-path "~/org/bibliography/notes.org"
+       bibtex-completion-pdf-field "file"
+       bibtex-completion-additional-search-fields '(keywords))
+
+;; == LSP ==
+(with-eval-after-load 'lsp-treemacs
+    (lsp-treemacs-sync-mode 1))
+(setq lsp-log-io nil)
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
@@ -49,6 +58,16 @@
  (lambda ()
    (org-display-inline-images)))
 
+;; == Python cells ==
+(add-hook 'python-mode-hook 'code-cells-mode-maybe)
+(with-eval-after-load 'code-cells
+  (let ((map code-cells-mode-map))
+    (keymap-set map "M-p" 'code-cells-backward-cell)
+    (keymap-set map "M-n" 'code-cells-forward-cell)
+    (keymap-set map "C-c C-c" 'code-cells-eval)
+    ;; Overriding other minor mode bindings requires some insistence...
+    (keymap-set map "<remap> <jupyter-eval-line-or-region>" 'code-cells-eval)))
+
 ;; == HASKELL ==
 (add-hook
  'haskell-mode
@@ -59,8 +78,11 @@
   :after lsp-mode
   :init
   (setq lsp-tailwindcss-add-on-mode t)
-  (setq lsp-log-io t)
   (setq lsp-tailwindcss-emmet-completions t))
+
+;; == DATA ==
+(add-hook 'csv-mode-hook #'rainbow-csv-mode)
+(add-hook 'tsv-mode-hook #'rainbow-csv-mode)
 
 ;; == MAIL ==
 (add-hook 'mail-mode-hook 'flyspell-mode)
@@ -253,10 +275,11 @@
        :tools
        ;;ansible
        (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
+       biblio
        direnv
        (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
-       ein               ; tame Jupyter notebooks with emacs
+       ;; ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary)              ; navigate your code and its documentation
@@ -282,7 +305,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       ;; csharp            ; unity, .NET, and mono shenanigans
+       (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
@@ -323,7 +346,7 @@
        ;;raku              ; the artist formerly known as perl6
        (rest +jq)              ; Emacs as a REST client
        ;;rst               ; ReST in peace
-       ;; (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (ruby +rails +lsp)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps

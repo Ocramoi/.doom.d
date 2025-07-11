@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: Word counter for org heading
+# uuid: { 0xcc7538d8, 0x1e27, 0x463b, { 0xbe, 0x60, 0x6f, 0xa9, 0x18, 0xe4, 0x1e, 0x77 } }
+# key: count
+# condition: t
+# --
+
+
+#+BEGIN_SRC emacs-lisp :results replace :exports results
+(save-excursion
+  (let ((start (progn
+                 (outline-next-heading)  ; Move past the current heading
+                 (forward-line) ; Skip the heading line
+                 (point)))
+        (end (progn
+               (outline-next-heading) ; Move to next heading at same level
+               (point))))
+    (let ((content (buffer-substring-no-properties start end)))
+      (format "Character count: %d" (length content)))))
+#+END_SRC

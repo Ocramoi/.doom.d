@@ -68,12 +68,13 @@
 ;; == LSP ==
 (setq lsp-headerline-breadcrumb-enable t)
 (setq lsp-lens-enable t)
-
+(setq lsp-file-watch-ignored-directories '("[/\\\\]\\.git\\'" "[/\\\\]\\.github\\'" "[/\\\\]node_modules\\'"))
 
 ;; == copilot ==
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
  :hook (prog-mode . copilot-mode)
+ :hook (org-mode . copilot-mode)
  :bind (:map copilot-completion-map
              ("<tab>" . 'copilot-accept-completion)
              ("TAB" . 'copilot-accept-completion)
@@ -92,10 +93,10 @@
         centaur-tabs-set-bar 'left)
   (centaur-tabs-group-by-projectile-project)
   :bind
-    ("C-<prior>" . centaur-tabs-backward)
-    ("C-<next>" . centaur-tabs-forward)
-    ("C-{" . centaur-tabs-backward)
-    ("C-}" . centaur-tabs-forward))
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+  ("C-{" . centaur-tabs-backward)
+  ("C-}" . centaur-tabs-forward))
 
 ;; == rest ==
 (use-package! restclient-jq
@@ -105,14 +106,25 @@
 ;; == ChatGPT ==
 (use-package! gptel)
 
-;; == ellama ==
-(use-package! ellama
-  :bind ("C-c e" . ellama-transient-main-menu)
-  ;; send last message in chat buffer with C-c C-c
-  :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message)
-  :init (setopt ellama-auto-scroll t)
+;; == org ==
+;;; == org-roam ==
+(use-package org-roam
+  :custom
+  (org-roam-directory (file-truename "~/org/Roam/"))
+  :init
+  (setq org-roam-completion-everywhere t)
+  (setq org-roam-v2-ack t)
   :config
-  ;; show ellama context in header line in all buffers
-  (ellama-context-header-line-global-mode +1)
-  ;; show ellama session id in header line in all buffers
-  (ellama-session-header-line-global-mode +1))
+  (org-roam-db-autosync-mode))
+
+;; == ellama ==
+;; (use-package! ellama
+;;   :bind ("C-c e" . ellama-transient-main-menu)
+;;   ;; send last message in chat buffer with C-c C-c
+;;   :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message)
+;;   :init (setopt ellama-auto-scroll t)
+;;   :config
+;;   ;; show ellama context in header line in all buffers
+;;   (ellama-context-header-line-global-mode +1)
+;;   ;; show ellama session id in header line in all buffers
+;;   (ellama-session-header-line-global-mode +1))
