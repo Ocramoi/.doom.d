@@ -108,21 +108,21 @@
    ;; (setenv "LANG" "en_US.UTF-8")
    (setq ispell-program-name "hunspell") ;;
    ;; Configure English and Portuguese.
-   (setq ispell-dictionary "en_US") ;;
+   (setq ispell-dictionary "en_US,pt_BR") ;;
+   (ispell-set-spellchecker-params)
+   (ispell-hunspell-add-multi-dic "en_US,pt_BR")
    ;; (ispell-change-dictionary "en_US")
    ;; ispell-set-spellchecker-params has to be called
    ;; before ispell-hunspell-add-multi-dic will work
    (ispell-set-spellchecker-params) ;;
-   (ispell-hunspell-add-multi-dic "pt_BR,en_US") ;;
+   (ispell-hunspell-add-multi-dic "en_US,pt_BR") ;;
    (defun ispell-get-coding-system () 'utf-8) ;;
-   (ispell-change-dictionary "pt_BR,en_US")
-   ;; (setq ispell-alternate-dictionary "pt_BR,en_US")
+   ;;(ispell-change-dictionary "pt_BR,en_US")
    (setq ispell-alternate-dictionary "en_US")
    (setq ispell-personal-dictionary "~/.hunspell_personal")))
-   ;; (setq company-ispell-dictionary (file-truename "/usr/share/dict/words"))
-   ;; (add-to-list 'company-backends 'company-ispell)
 
-
+(unless (file-exists-p ispell-personal-dictionary)
+  (write-region "" nil ispell-personal-dictionary nil 0))
 
 ;; == imenu ==
 (setq imenu-list-auto-resize t)
