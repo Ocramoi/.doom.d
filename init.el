@@ -124,7 +124,9 @@
 ;; == imenu ==
 (setq imenu-list-auto-resize t)
 (setq imenu-list-idle-update-delay 0.5)
-(add-hook 'prog-mode-hook 'lsp-ui-imenu)
+(setq imenu-auto-rescan t)
+(setq imenu-list-focus-after-activation nil)
+(keymap-set mode-specific-map "t" 'imenu-list-minor-mode)
 
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
