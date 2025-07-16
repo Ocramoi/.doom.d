@@ -109,8 +109,8 @@
    (setq ispell-program-name "hunspell") ;;
    ;; Configure English and Portuguese.
    (setq ispell-dictionary "en_US,pt_BR") ;;
-   (ispell-set-spellchecker-params)
-   (ispell-hunspell-add-multi-dic "en_US,pt_BR")
+   ;(ispell-set-spellchecker-params)
+   ;(ispell-hunspell-add-multi-dic "en_US,pt_BR")
    ;; (ispell-change-dictionary "en_US")
    ;; ispell-set-spellchecker-params has to be called
    ;; before ispell-hunspell-add-multi-dic will work
@@ -121,13 +121,10 @@
    (setq ispell-alternate-dictionary "en_US")
    (setq ispell-personal-dictionary "~/.hunspell_personal")))
 
-(unless (file-exists-p ispell-personal-dictionary)
-  (write-region "" nil ispell-personal-dictionary nil 0))
-
 ;; == imenu ==
 (setq imenu-list-auto-resize t)
 (setq imenu-list-idle-update-delay 0.5)
-;; (add-hook 'prog-mode-hook 'imenu-list-minor-mode)
+(add-hook 'prog-mode-hook 'lsp-ui-imenu)
 
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
