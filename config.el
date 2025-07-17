@@ -131,9 +131,8 @@
 
 ;; == projectile ==
 (use-package projectile
-  :ensure t
   :init
   (setq projectile-auto-discover t)
-  (setq projectile-project-search-path "~/Projects")
+  (setq projectile-project-search-path (file-truename "~/Projects/"))
   :config
   (projectile-mode +1))
