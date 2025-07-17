@@ -133,6 +133,6 @@
 (use-package projectile
   :init
   (setq projectile-auto-discover t)
-  (setq projectile-project-search-path (file-truename "~/Projects/"))
+  (setq projectile-auto-cleanup-known-projects t)
   :config
   (projectile-mode +1))
