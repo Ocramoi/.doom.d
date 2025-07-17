@@ -118,7 +118,7 @@
    (ispell-hunspell-add-multi-dic "en_US,pt_BR") ;;
    (defun ispell-get-coding-system () 'utf-8) ;;
    ;;(ispell-change-dictionary "pt_BR,en_US")
-   (setq ispell-alternate-dictionary "en_US")
+   ;;(setq ispell-alternate-dictionary "en")
    (setq ispell-personal-dictionary "~/.hunspell_personal")))
 
 ;; == imenu ==
