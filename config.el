@@ -128,3 +128,12 @@
 ;;   (ellama-context-header-line-global-mode +1)
 ;;   ;; show ellama session id in header line in all buffers
 ;;   (ellama-session-header-line-global-mode +1))
+
+;; == projectile ==
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-auto-discover t)
+  (setq projectile-project-search-path "~/Projects")
+  :config
+  (projectile-mode +1))
