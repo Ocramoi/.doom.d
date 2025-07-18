@@ -41,8 +41,11 @@
 
 ;; == LSP ==
 (with-eval-after-load 'lsp-treemacs
-    (lsp-treemacs-sync-mode 1))
+  (treemacs-project-follow-mode 1)
+  (lsp-treemacs-sync-mode 1))
 (setq lsp-log-io nil)
+(setq lsp-treemacs-symbols-position-params '((side . right) (slot . 2) (window-width . 35)))
+(keymap-set mode-specific-map "t" 'lsp-treemacs-symbols)
 
 ;; == org ==
 (setq org-sticky-header-full-path 'full)
@@ -121,13 +124,6 @@
    ;;(setq ispell-alternate-dictionary "en")
    (setq ispell-personal-dictionary "~/.hunspell_personal")))
 
-;; == imenu ==
-(setq imenu-list-auto-resize t)
-(setq imenu-list-idle-update-delay 0.5)
-(setq imenu-auto-rescan t)
-(setq imenu-list-focus-after-activation nil)
-(keymap-set mode-specific-map "t" 'imenu-list-minor-mode)
-
 ;; == vterm ==
 (add-hook 'vterm-mode-hook
           (lambda ()
@@ -187,7 +183,7 @@
 
 ;; Custom hooks ;;
 (global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-b") 'treemacs)
+(keymap-set mode-specific-map "l" 'treemacs)
 (global-set-key (kbd "C-/") 'comment-line)
 
 (global-unset-key (kbd "C-z"))
