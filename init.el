@@ -302,7 +302,7 @@
        ;;crystal           ; ruby at the speed of c
        (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
-       ;;(dart +flutter)   ; paint ui and not much else
+       (dart +flutter +lsp)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        (emacs-lisp +lsp)        ; drown in parentheses
