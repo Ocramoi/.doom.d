@@ -152,3 +152,7 @@
 (use-package citar-org-roam
   :after (citar org-roam)
   :config (citar-org-roam-mode))
+
+;; == dap ==
+;;     == dap-netcore ==
+(use-package dap-netcore)
