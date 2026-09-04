@@ -27,11 +27,11 @@
  '(org-directory "~/org")
  '(org-agenda-files (list org-directory)))
 (advice-add 'json-parse-buffer :around
-              (lambda (orig &rest rest)
-                (save-excursion
-                  (while (re-search-forward "\\\\u0000" nil t)
-                    (replace-match "")))
-                (apply orig rest)))
+            (lambda (orig &rest rest)
+              (save-excursion
+                (while (re-search-forward "\\\\u0000" nil t)
+                  (replace-match "")))
+              (apply orig rest)))
 
 (setq! bibtex-completion-bibliography '("~/org/bibliography.bib")
        bibtex-completion-library-path '("~/org/bibliography")
@@ -55,6 +55,15 @@
    (org-sticky-header-mode)
    (setq org-image-actual-width nil)
    (setq org-pretty-entities t)))
+
+;;; == org-agenda ==
+(defun cal-sync ()
+  "Run iCal org sync"
+  (interactive)
+  (shell-command "syncIcals" "*iCal sync*" "*syncIcals Error Buffer*"))
+(add-hook
+ 'org-agenda-mode-hook
+ 'cal-sync)
 
 (add-hook
  'org-tree-slide-mode
@@ -92,11 +101,14 @@
 (add-hook 'mail-mode-hook 'flycheck-mode)
 (add-hook 'mail-mode-hook 'turn-on-auto-fill)
 
-; open mail-mode when emacs is invoked by mutt
+                                        ; open mail-mode when emacs is invoked by mutt
 (add-to-list 'auto-mode-alist '("/.tmpmail" . mail-mode))
 
 ;; == Docker ==
 (add-to-list 'auto-mode-alist '("dockerfile" . dockerfile-mode))
+
+;; == Rust ==
+(setq lsp-rust-analyzer-server-extra-args '("--no-cargo-metadata"))
 
 ;; == Twitter ==
 (setq twittering-allow-insecure-server-cert t)
@@ -112,8 +124,8 @@
    (setq ispell-program-name "hunspell") ;;
    ;; Configure English and Portuguese.
    (setq ispell-dictionary "en_US,pt_BR") ;;
-   ;(ispell-set-spellchecker-params)
-   ;(ispell-hunspell-add-multi-dic "en_US,pt_BR")
+                                        ;(ispell-set-spellchecker-params)
+                                        ;(ispell-hunspell-add-multi-dic "en_US,pt_BR")
    ;; (ispell-change-dictionary "en_US")
    ;; ispell-set-spellchecker-params has to be called
    ;; before ispell-hunspell-add-multi-dic will work
@@ -167,8 +179,8 @@
   (setq company-ispell-dictionary (file-truename (concat "/usr/share/dict/" choice))))
 
 ;; == Java ==
-(setenv "JAVA_HOME"  "/usr/lib/jvm/java-8-openjdk/jre")
-(setq lsp-java-java-path "$JAVA_HOME/bin/java")
+(setenv "JAVA_HOME"  "/home/ocramoi/.sdkman/candidates/java/current")
+(setq lsp-java-java-path "/home/ocramoi/.sdkman/candidates/java/current/bin/java")
 
 ;; Org mode ;;
 (with-eval-after-load 'ox-latex
@@ -269,6 +281,7 @@
 
        :tools
        ;;ansible
+       tree-sitter       ; syntax and parsing, sitting in a tree...
        (debugger +lsp)          ; FIXME stepping through code, to help you add bugs
        biblio
        direnv
@@ -319,9 +332,9 @@
        (json +lsp)              ; At least it ain't XML
        ;; (java +meghanada) ; the poster child for carpal tunnel syndrome
        (java +lsp) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
-       ;;kotlin            ; a better, slicker Java(Script)
+       (kotlin +lsp)            ; a better, slicker Java(Script)
        (latex +lsp)             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
@@ -331,11 +344,11 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pandoc +pretty +gnuplot +dragndrop +gnuplot +journal +jupyter +noter +present +roam2)               ; organize your plain life in plain text
+       (org +pandoc +pretty +gnuplot +dragndrop +gnuplot +journal +jupyter +noter +present +roam)               ; organize your plain life in plain text
        ;; php               ; perl's insecure younger brother
        ;; plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +pyenv)            ; beautiful is better than ugly
+       (python +lsp +pyenv +poetry +pyright)            ; beautiful is better than ugly
        (qt +lsp)                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6

@@ -62,13 +62,19 @@
 (setq find-file-visit-truename nil)
 (package-initialize)
 
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+;; == environment ==
+(use-package doom-themes :ensure t :defer t
+  :config
+  (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
+          '(:inherit 'gnus-group-mail-1-empty :weight 'normal)))
 
 ;; == LSP ==
 (setq lsp-headerline-breadcrumb-enable t)
 (setq lsp-lens-enable t)
 (setq lsp-file-watch-ignored-directories '("[/\\\\]\\.git\\'" "[/\\\\]\\.github\\'" "[/\\\\]node_modules\\'"))
+
+;;      == web ==
+(add-hook 'vue-mode-hook #'lsp!)
 
 ;; == copilot ==
 ;; accept completion from copilot and fallback to company
@@ -113,9 +119,7 @@
   (org-roam-directory (file-truename "~/org/Roam/"))
   :init
   (setq org-roam-completion-everywhere t)
-  (setq org-roam-v2-ack t)
-  :config
-  (org-roam-db-autosync-mode))
+  (setq org-roam-v2-ack t))
 
 ;; == ellama ==
 ;; (use-package! ellama
@@ -136,3 +140,15 @@
   (setq projectile-auto-cleanup-known-projects t)
   :config
   (projectile-mode +1))
+
+;; == citar ==
+(use-package citar-org
+  :after oc
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar))
+
+(use-package citar-org-roam
+  :after (citar org-roam)
+  :config (citar-org-roam-mode))
