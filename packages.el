@@ -123,3 +123,7 @@
 (package! code-cells)
 (package! citar)
 (package! citar-org-roam)
+
+;; == dap-mode ==
+(package! dap-mode)
+(package! posframe)

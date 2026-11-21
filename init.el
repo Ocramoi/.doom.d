@@ -34,10 +34,10 @@
               (apply orig rest)))
 
 (setq! bibtex-completion-bibliography '("~/org/bibliography.bib")
-       bibtex-completion-library-path '("~/org/bibliography")
-       bibtex-completion-notes-path "~/org/bibliography/notes.org"
-       bibtex-completion-pdf-field "file"
-       bibtex-completion-additional-search-fields '(keywords))
+      bibtex-completion-library-path '("~/org/bibliography")
+      bibtex-completion-notes-path "~/org/bibliography/notes.org"
+      bibtex-completion-pdf-field "file"
+      bibtex-completion-additional-search-fields '(keywords))
 
 ;; == LSP ==
 (with-eval-after-load 'lsp-treemacs
@@ -156,7 +156,7 @@
   '(add-to-list 'company-backends 'company-irony-c-headers))
 
 ;; == HELM ==
-(setq! helm-recentf-fuzzy-match t)
+(setq helm-recentf-fuzzy-match t)
 (define-key global-map [remap recentf-open-files] #'helm-recentf)
 (define-key global-map [remap +default/search-project] #'+helm/project-search)
 (define-key global-map [remap find-file] #'helm-find-files)
