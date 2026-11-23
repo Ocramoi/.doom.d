@@ -33,7 +33,7 @@
                   (replace-match "")))
               (apply orig rest)))
 
-(setq! bibtex-completion-bibliography '("~/org/bibliography.bib")
+(setq bibtex-completion-bibliography '("~/org/bibliography.bib")
       bibtex-completion-library-path '("~/org/bibliography")
       bibtex-completion-notes-path "~/org/bibliography/notes.org"
       bibtex-completion-pdf-field "file"
